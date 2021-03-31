@@ -57,7 +57,7 @@ function uidExists($connection, $username, $email){
 
     $resultData = mysqli_stmt_get_result($stmt);
 
-    if (mysqli_fetch_assoc($resultData)) {
+    if ($row = mysqli_fetch_assoc($resultData)) {
         return $row;
     }
     else{
@@ -97,14 +97,14 @@ function emptyInputLogin($username, $pwd){
 }
 
 function loginUser($connection, $username, $pwd){
-    $uidExists = uidExists($conn, $username, $username);
-
+    $uidExists = uidExists($connection, $username, $username);
+    print("<p>test</p>");
     if ($uidExists === false) {
         header("location: ../login.php?error=wrongusername");
         exit();
     }
-
-    $pwdHashed = $uidExists["userPwd"];
+    
+    $pwdHashed = $uidExists["usersPwd"];
     $checkPwd = password_verify($pwd, $pwdHashed);
     if ($checkPwd === false){
         header("location: ../login.php?error=wrongpassword");
