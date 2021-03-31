@@ -4,7 +4,7 @@
 <section class="index-intro">
     <?php
         if (isset($_SESSION["useruid"])) {
-            echo "<h1>Hello " . $_SESSION["useruid"] . "!</h1>";
+            echo "<h1>Hello " . $_SESSION["userName"] . "!</h1>";
         }
     ?>
 </section>
