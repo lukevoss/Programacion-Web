@@ -115,6 +115,7 @@ function loginUser($connection, $username, $pwd){
         $_SESSION["userid"] = $uidExists["usersId"];
         $_SESSION["useruid"] = $uidExists["usersUid"];
         $_SESSION["userName"] = $uidExists["usersName"];
+        $_SESSION["userpos"] = $uidExists["usersPos"];
         //TODO send to Home page
         header("location: ../index.php");
         exit();
