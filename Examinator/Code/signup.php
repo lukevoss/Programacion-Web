@@ -48,11 +48,60 @@ if(isset($_SESSION["userid"]) && $_SESSION["userpos"]==="Admin"){
         }
         ?>
     </section>
+    
 
     <section class="delete-form">
-        <h3> Delete User</h3>
+        <h2> Delete User</h2>
         <div class="delete-form-form">
+            <?php
+                require_once 'includes/dbh.inc.php';
+                $sql = "select * from users where usersID <> " . $_SESSION['userid'] . " order by usersName asc;";
+                $query = mysqli_query($connection, $sql) or die ("Failed Access to Table, check SQL");
+                $nrows = mysqli_num_rows($query);
+                if($nrows >0){
+            ?>
+            <form action="includes/delete.inc.php" method="post">
+                <table>
+                <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Position</th>
+                <th>Delete</th>
+                </tr>
+                <?php
+                for ($i = 0; $i<$nrows; $i++){
+                    $result = mysqli_fetch_array($query);
+                    echo "<tr>";
+                    echo "<td>" . $result['usersId'] . "</td>";
+                    echo "<td>" . $result['usersName'] . "</td>";
+                    echo "<td>" . $result['usersEmail'] . "</td>";
+                    echo "<td>" . $result['usersUid'] . "</td>";
+                    echo "<td>" . $result['usersPwd'] . "</td>";
+                    echo "<td>" . $result['usersPos'] . "</td>";
+                    echo "<td><input type='checkbox' name='delete[]' value='" . $result['usersId'] . "'></td>";
+                    echo "</tr>";
+                }
+                ?>
+                </table>
+                <input type="submit" name="deleteuser" value="Delete Users">
+            </form>
+            <?php
+                }
+                else {
+                    echo "There are currently no users other than you";
+                }
+            ?>
         </div>
+        <?php
+        if (isset($_GET['deleteerror'])){
+            if ($_GET['deleteerror'] == "none") {
+                echo "<p>Users have been deleted!</p>";
+            }
+        }
+        ?>
     </section>
     <?php
     }

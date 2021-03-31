@@ -121,3 +121,8 @@ function loginUser($connection, $username, $pwd){
         exit();
     }
 }
+
+function deleteUser($connection, $userId){
+    $sql = "delete from users where usersId = $userId";
+    mysqli_query($connection, $sql) or die ("Failed to delete User");
+}
