@@ -1,6 +1,10 @@
 <?php
     include_once 'header.php'
 ?>
+
+<?php
+if(isset($_SESSION["userid"]) && $_SESSION["userpos"]==="Admin"){
+?>
     <section class="signup-form">
         <h2>Sign Up User</h2>
         <div class="signup-form-form">
@@ -45,6 +49,17 @@
         ?>
     </section>
 
+    <section class="delete-form">
+        <h3> Delete User</h3>
+        <div class="delete-form-form">
+        </div>
+    </section>
+    <?php
+    }
+    else{
+        echo "<h1> Error: Access not granted</h1>";
+    }
+    ?>
     
         
 
