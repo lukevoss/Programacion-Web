@@ -117,6 +117,11 @@ function loginUser($connection, $username, $pwd){
         $_SESSION["userName"] = $uidExists["usersName"];
         $_SESSION["userpos"] = $uidExists["usersPos"];
         //TODO send to Home page
+        if($_SESSION["userpos"]==="Professor"){
+            header("location: ../profe.php");
+            exit();
+        }
+
         header("location: ../index.php");
         exit();
     }
