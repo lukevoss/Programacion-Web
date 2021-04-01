@@ -1,13 +1,16 @@
-<?php
-
-if (isset($_POST['signupuser'])){
+if (isset($_POST['submit'])){
     
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $username = $_POST['uid'];
-    $pwd = $_POST['pwd'];
-    $pwdRepeat = $_POST['pwdrepeat'];
-    $position = $_POST['position'];
+    $topic = $_POST['topic'];
+    $newtopic = $_POST['newtopic'];
+    $question = $_POST['question'];
+    $answer1 = $_POST['answer1'];
+    $correctanswer1 = $_POST['correctanswer1'];
+    $answer2 = $_POST['answer2'];
+    $correctanswer2 = $_POST['correctanswer2'];
+    $answer3 = $_POST['answer3'];
+    $correctanswer3 = $_POST['correctanswer3'];
+    $answer4 = $_POST['answer4'];
+    $correctanswer4 = $_POST['correctanswer4'];
 
     require_once 'dbh.inc.php';
     require_once 'functions.inc.php';

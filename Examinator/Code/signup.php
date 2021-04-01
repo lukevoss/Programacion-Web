@@ -16,10 +16,10 @@ if(isset($_SESSION["userid"]) && $_SESSION["userpos"]==="Admin"){
                 <input type="password" name="pwdrepeat" placeholder="Repeat password">
                 <select name="position" id="position">
                     <option value="student" selected>Student</option>
-                    <option value="professor" selected>Professor</option>
-                    <option value="admin" selected>Admin</option>
+                    <option value="professor" >Professor</option>
+                    <option value="admin" >Admin</option>
                 </select>
-                <button type="submit" name="submit">Sign Up</button>
+                <button type="submit" name="signupuser">Sign Up</button>
             </form>
         </div>
         <?php
