@@ -1,5 +1,17 @@
 <?php
-    include_once 'header.php'
+    include_once 'header.php';
+    if(isset($_POST['asigRunning'])){
+        $asigRunning = $_POST['asigRunning'];
+        if(isset($_POST['start'])){
+            if($_POST['start']==="start"){
+                echo "<p>Exam started!</p>";
+                //TODO SQL
+            }
+        }else{
+            echo "<p>Exam stopped!</p>";
+        }
+    }
+
 ?>
 <body>
     <h1>Welcome to the <abbr title="Student-destroy-Unit">SdU</abbr>!</h1>
@@ -12,7 +24,7 @@
                     $asigName = implode("",$asig); //convert array to string
                     echo $asigName;
                     ?>
-                    <form action="test.php" method="post">
+                    <form action="editquestion.php" method="post">
                         <input type="hidden" name="asig" value=<?php echo $asigName; ?>>
                         <button type="submit" name="edit">Edit Questions</button>
                     </form>
@@ -22,16 +34,19 @@
                     <?php
                     $examRunning = mysqli_fetch_row($examRunningSqli);
                     //$eR = implode("",$examRunning);
-                    if($examRunning[0]){
+                    if(!$examRunning[0]){
                         ?>
-                        <form action="TODO" method="post">
-                            <button type="submit" name="startExam">start Exam</button>
+                        <form action="profe.php" method="post">
+                            <input type="hidden" name="asigRunning" value=<?php echo $asigName; ?>>
+                            <input type="hidden" name="start" value="start">
+                            <button type="submit" name="startExam" value = "test">start Exam</button>
                         </form>
                         <?php
                     }
                     else{
                         ?>
-                        <form action="TODO" method="post">
+                        <form action="profe.php" method="post">
+                            <input type="hidden" name="asigRunning" value=<?php echo $asigName; ?>>
                             <button type="submit" name="stopExam">stop Exam</button>
                         </form>
                         <?php
