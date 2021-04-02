@@ -11,7 +11,7 @@
             if($nfilas===0){//TODO
                 foreach ($resultData as $asig){ //asig is now an array of one line.
                     $asigName = implode("",$asig); //convert array to string
-                    echo $asigName;
+                    echo "<h3>$asigName</h3>";
                     ?>
                     <form action="editquestion.php" method="post">
                         <input type="hidden" name="asig" value=<?php echo $asigName; ?>>
