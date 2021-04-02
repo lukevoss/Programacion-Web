@@ -170,4 +170,29 @@ function createQuestion($connection, $course, $topic, $newtopic, $question, $ans
     mysqli_stmt_close($stmt);
     header("location: ../editquestion.php?error=none");
         exit();
+
+
+function start_exam($asigName, $noQuestions, $connection){
+    $sql = "UPDATE `courses` SET `coursesExam_running` = '1', `coursesNoQuestions` = ? WHERE `courses`.`coursesAsig` = ?";
+    $stmt = mysqli_stmt_init($connection);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        die("SQL error");
+    }
+    mysqli_stmt_bind_param($stmt, "is", $noQuestions, $asigName );
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    header("location: ../profe.php?");
+    exit();
+}
+function stop_exam($asigName, $connection){
+    $sql = "UPDATE `courses` SET `coursesExam_running` = '0' WHERE `courses`.`coursesAsig` = ?";
+    $stmt = mysqli_stmt_init($connection);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        die("SQL error");
+    }
+    mysqli_stmt_bind_param($stmt, "s",$asigName );
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    header("location: ../profe.php?");
+    exit();
 }
