@@ -1,7 +1,7 @@
 <?php
 
 function emptyInputSignup($name, $email, $username, $pwd, $pwdRepeat, $position){
-    $result;
+    $result = true;
     if(empty($name) || empty($email)||empty($username)||empty($pwd)||empty($pwdRepeat)||empty($position)){
         $result = true;
     }
@@ -11,19 +11,8 @@ function emptyInputSignup($name, $email, $username, $pwd, $pwdRepeat, $position)
     return $result;
 }
 
-//function invalidUid($username){
-//    $result;
-//    if(preg_match("/^[a-zA-Z0-9]*$/",$username)){
-//        $result = true;
-//    }
-//    else{
-//        $result = false;
-//    }
-//    return $result;
-//}
-
 function invalidEmail($email){
-    $result;
+    $result = true;
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
         $result = true;
     }
@@ -34,7 +23,7 @@ function invalidEmail($email){
 }
 
 function pwdMatch($pwd, $pwdRepeat){
-    $result;
+    $result = true;
     if($pwd !== $pwdRepeat){
         $result = true;
     }
@@ -86,7 +75,7 @@ function createUser($connection, $name, $email, $username, $pwd, $position){
 }
 
 function emptyInputLogin($username, $pwd){
-    $result;
+    $result = true;
     if(empty($username)||empty($pwd)){
         $result = true;
     }
@@ -130,4 +119,55 @@ function loginUser($connection, $username, $pwd){
 function deleteUser($connection, $userId){
     $sql = "delete from users where usersId = $userId";
     mysqli_query($connection, $sql) or die ("Failed to delete User");
+}
+
+function emptyInputQuestion($topic, $newtopic, $question, $answer1, $answer2){
+    $result = true;
+    if(empty($topic) || empty($question)||empty($answer1)||empty($answer2))
+        $result = true;
+    elseif (ctype_space($answer1) || ctype_space($answer2))
+        $result = true;
+    elseif($topic === "add Topic" && empty($newtopic))
+        $result = true;
+    else $result = false;
+    return $result;
+}
+
+function invalidCheckbox($correctanswer, $answer3, $answer4){
+    $result = true;
+    if($correctanswer === "3" && (ctype_space($answer3)||empty($answer3)))
+    {
+        $result = true;
+    }
+    elseif($correctanswer === "4" && (ctype_space($answer4)||empty($answer4))){
+        $result = true;
+    }
+    else{
+        $result=false;
+    }
+    return $result;
+}
+
+function invalidTopic($topic, $newtopic){
+    $result = true;
+    if ($topic !== "add Topic" && !empty($newtopic))
+    $result = true;
+    else $result = false;
+    return $result;
+}
+
+function createQuestion($connection, $course, $topic, $newtopic, $question, $answer1, $answer2, $answer3, $answer4, $correctanswer){
+    $sql = "Insert into questions (questionsAsig, questionsTopic, questionsQuestion, questionsAnswer_1, questionsAnswer_2, questionsAnswer_3, questionsAnswer_4, questionsCorrect_answer) values (?,?,?,?,?,?,?,?);";
+    $stmt = mysqli_stmt_init($connection);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../editquestion.php?error=stmtfailed");
+        exit();
+    }
+    if ($topic === "add Topic")
+        $topic = $newtopic;
+    mysqli_stmt_bind_param($stmt, "ssssssss", $course, $topic, $question, $answer1, $answer2, $answer3, $answer4, $correctanswer);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    header("location: ../editquestion.php?error=none");
+        exit();
 }
