@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/functions.inc.php';
-require_once 'includes/dbh.inc.php';
+require_once 'functions.inc.php';
+require_once 'dbh.inc.php';
 //if(isset($_POST['asigRunning'])){
     $asigRunning = $_POST['asigRunning'];
 //    if(isset($_POST['start'])){

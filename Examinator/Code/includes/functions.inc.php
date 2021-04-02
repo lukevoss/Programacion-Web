@@ -140,7 +140,7 @@ function start_exam($asigName, $connection){
     mysqli_stmt_bind_param($stmt, "s",$asigName );
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    header("location: profe.php?");
+    header("location: ../profe.php?");
     exit();
 }
 function stop_exam($asigName, $connection){
@@ -152,6 +152,6 @@ function stop_exam($asigName, $connection){
     mysqli_stmt_bind_param($stmt, "s",$asigName );
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    header("location: profe.php?");
+    header("location: ../profe.php?");
     exit();
 }

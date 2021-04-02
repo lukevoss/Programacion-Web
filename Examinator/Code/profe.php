@@ -25,16 +25,18 @@
                     //$eR = implode("",$examRunning);
                     if(!$examRunning[0]){
                         ?>
-                        <form action="startExam.inc.php" method="post">
+                        <form action="includes/startExam.inc.php" method="post">
                             <input type="hidden" name="asigRunning" value=<?php echo $asigName; ?>>
                             <input type="hidden" name="start" value="start">
+                            <label for="numberQuestions">Number of Questions</label>
+                            <input type="number" min="1" step="1" value="20" name = "numberQuestions">
                             <button type="submit" name="startExam" value = "test">start Exam</button>
                         </form>
                         <?php
                     }
                     else{
                         ?>
-                        <form action="stopExam.inc.php" method="post">
+                        <form action="includes/stopExam.inc.php" method="post">
                             <input type="hidden" name="asigRunning" value=<?php echo $asigName; ?>>
                             <button type="submit" name="stopExam">stop Exam</button>
                         </form>
