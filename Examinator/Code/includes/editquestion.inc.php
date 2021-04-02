@@ -19,7 +19,7 @@ if (isset($_POST['addquestion'])){
         exit();   
     }
 
-    if (invalidCheckbox($correctanswer, $answer1, $answer2) !== false) {
+    if (invalidCheckbox($correctanswer, $answer3, $answer4) !== false) {
         header("location: ../editquestion.php?error=invalidcheckbox");
         exit();   
     }

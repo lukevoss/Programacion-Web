@@ -170,7 +170,7 @@ function createQuestion($connection, $course, $topic, $newtopic, $question, $ans
     mysqli_stmt_close($stmt);
     header("location: ../editquestion.php?error=none");
         exit();
-
+}
 
 function start_exam($asigName, $noQuestions, $connection){
     $sql = "UPDATE `courses` SET `coursesExam_running` = '1', `coursesNoQuestions` = ? WHERE `courses`.`coursesAsig` = ?";
@@ -195,4 +195,9 @@ function stop_exam($asigName, $connection){
     mysqli_stmt_close($stmt);
     header("location: ../profe.php?");
     exit();
+}
+
+function deleteQuestion($connection, $questionId){
+    $sql = "delete from questions where questionsQuestion_id = $questionId";
+    mysqli_query($connection, $sql) or die ("Failed to delete Question");
 }

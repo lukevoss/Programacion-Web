@@ -14,10 +14,24 @@
     <nav>
         <div class="wrapper">
             <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="discover.php">About Us</a></li>
-                <li><a href="blog.php">Find Blog</a></li>
                 <?php
+                    //Home
+                    if (isset($_SESSION["useruid"])) {
+                        if($_SESSION["userpos"]==="Professor"){
+                            echo "<li><a href='profe.php'>Home</a></li>";
+                        }
+                        //TODO
+                        elseif($_SESSION["userpos"]==="Student"){
+                            echo "<li><a href='index.php'>Home</a></li>";
+                        }
+                        else {
+                            echo "<li><a href='index.php'>Home</a></li>";
+                        }
+                    }
+                    else{
+                        echo "<li><a href='index.php'>Home</a></li>";
+                    }
+                    //Signup/Login/Logout
                     if (isset($_SESSION["useruid"])) {
                         if($_SESSION["userpos"]==="Admin"){
                             echo "<li><a href='signup.php'>Administration User</a></li>";

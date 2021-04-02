@@ -2,8 +2,10 @@
     include_once 'header.php'
 ?>
 <?php
-    //heading for course
-    echo "<h1>" . $_POST['asig'] . "</h1>";
+   if(isset($_POST['asig'])){
+       $_SESSION['course'] = $_POST['asig'];
+   }
+    echo "<h1>" . $_SESSION['course'] . "</h1>";
 ?>
 <section class="add-questions-form">
     <h2>Add Question</h2>
@@ -16,7 +18,7 @@
             //show all Topics from that course
             require_once "includes/dbh.inc.php";
             //$sql = "select distinct questionsTopic from questions where questionsAsig = " . $course .";";
-            $sql = "select questionsTopic from questions where questionsAsig ='".  $_POST['asig'] ."';";
+            $sql = "select questionsTopic from questions where questionsAsig ='".  $_SESSION['course'] ."';";
             $query = mysqli_query($connection, $sql) or die ("Ups, something went wrong!");
             $nrows = mysqli_num_rows($query);
             //BETTER for each
@@ -73,7 +75,7 @@
             </tr>
         </table>
         <?php
-        echo "<input type='hidden' name='course' value =". $_POST['asig'] .">";
+        echo "<input type='hidden' name='course' value =". $_SESSION['course'] .">";
         ?>
         <input type="submit" name="addquestion" value="Add Question">
     </form>
@@ -101,8 +103,59 @@
 
 <section class="delete-form">
     <h2>Delete Question</h2>
-    <div class="delete-form-form">
-    
+        <div class="delete-form-form">
+            <?php
+                require_once 'includes/dbh.inc.php';
+                $sql = "select * from questions where questionsAsig = '" . $_SESSION['course'] . "' order by questionsQuestion_id asc;";
+                $query = mysqli_query($connection, $sql) or die ("Failed Access to Table, check SQL");
+                $nrows = mysqli_num_rows($query);
+                if($nrows >0){
+            ?>
+            <form action="includes/deletequestions.inc.php" method="post">
+                <table>
+                <tr>
+                <th>Topic</th>
+                <th>ID</th>
+                <th>Question</th>
+                <th>1. Answer</th>
+                <th>2. Answer</th>
+                <th>3. Answer</th>
+                <th>4. Answer</th>
+                <th>Correct Answer</th>
+                </tr>
+                <?php
+                for ($i = 0; $i<$nrows; $i++){
+                    $result = mysqli_fetch_array($query);
+                    echo "<tr>";
+                    echo "<td>" . $result['questionsTopic'] . "</td>";
+                    echo "<td>" . $result['questionsQuestion_id'] . "</td>";
+                    echo "<td>" . $result['questionsQuestion'] . "</td>";
+                    echo "<td>" . $result['questionsAnswer_1'] . "</td>";
+                    echo "<td>" . $result['questionsAnswer_2'] . "</td>";
+                    echo "<td>" . $result['questionsAnswer_3'] . "</td>";
+                    echo "<td>" . $result['questionsAnswer_4'] . "</td>";
+                    echo "<td>" . $result['questionsCorrect_answer'] . "</td>";
+                    echo "<td><input type='checkbox' name='delete[]' value='" . $result['questionsQuestion_id'] . "'></td>";
+                    echo "</tr>";
+                }
+                ?>
+                </table>
+                <input type="submit" name="deletequestions" value="Delete Questions">
+            </form>
+            <?php
+                }
+                else {
+                    echo "There are currently no questions in this course";
+                }
+            ?>
+        </div>
+        <?php
+        if (isset($_GET['deleteerror'])){
+            if ($_GET['deleteerror'] == "none") {
+                echo "<p>Questions have been deleted!</p>";
+            }
+        }
+        ?>
     </div>
 </section>
 
