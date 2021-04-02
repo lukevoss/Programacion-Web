@@ -8,7 +8,7 @@
         <?php
             require_once 'includes/getAsig.inc.php';
             require_once 'includes/functions.inc.php';
-            if($nfilas===0){//TODO
+            if($nfilas>0){
                 foreach ($resultData as $asig){ //asig is now an array of one line.
                     $asigName = implode("",$asig); //convert array to string
                     echo "<h3>$asigName</h3>";
