@@ -131,13 +131,13 @@ function deleteUser($connection, $userId){
     $sql = "delete from users where usersId = $userId";
     mysqli_query($connection, $sql) or die ("Failed to delete User");
 }
-function start_exam($asigName, $connection){
-    $sql = "UPDATE `courses` SET `coursesExam_running` = '1' WHERE `courses`.`coursesAsig` = ?";
+function start_exam($asigName, $noQuestions, $connection){
+    $sql = "UPDATE `courses` SET `coursesExam_running` = '1', `coursesNoQuestions` = ? WHERE `courses`.`coursesAsig` = ?";
     $stmt = mysqli_stmt_init($connection);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         die("SQL error");
     }
-    mysqli_stmt_bind_param($stmt, "s",$asigName );
+    mysqli_stmt_bind_param($stmt, "is", $noQuestions, $asigName );
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     header("location: ../profe.php?");

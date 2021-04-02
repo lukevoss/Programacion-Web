@@ -3,9 +3,10 @@ require_once 'functions.inc.php';
 require_once 'dbh.inc.php';
 //if(isset($_POST['asigRunning'])){
     $asigRunning = $_POST['asigRunning'];
+    $noQuestions = $_POST['numberQuestions'];
 //    if(isset($_POST['start'])){
 //        if($_POST['start']==="start"){
-            start_exam($asigRunning, $connection);
+            start_exam($asigRunning, $noQuestions, $connection);
             echo "<p>Exam started!</p>";
 //        }
 //    }else{

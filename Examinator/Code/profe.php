@@ -29,7 +29,7 @@
                             <input type="hidden" name="asigRunning" value=<?php echo $asigName; ?>>
                             <input type="hidden" name="start" value="start">
                             <label for="numberQuestions">Number of Questions</label>
-                            <input type="number" min="1" step="1" value="20" name = "numberQuestions">
+                            <input type="number" min="1" max="999" step="1" value="20" name = "numberQuestions">
                             <button type="submit" name="startExam" value = "test">start Exam</button>
                         </form>
                         <?php
