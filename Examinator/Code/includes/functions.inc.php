@@ -202,3 +202,31 @@ function deleteQuestion($connection, $questionId){
     $sql = "delete from questions where questionsQuestion_id = $questionId";
     mysqli_query($connection, $sql) or die ("Failed to delete Question");
 }
+
+function examAlreadyTaken($connection, $idUser, $course){
+    $result = true;
+    $sql_Done = "Select Distinct answersUid from answers where answersUid = '$idUser' and answersAsig = '$course';";
+    $query_Done = mysqli_query($connection, $sql_Done);
+    $result_Done = mysqli_fetch_row($query_Done) or die("Failed to Access Database");
+    if (isset($result_Done[0])){
+        $result = true;
+    }
+    else {
+        $result = false;
+    }
+    return $result;
+}
+
+function examOver($connection, $course){
+    $result = true;
+    $sql = "select coursesExam_running from courses where coursesAsig ='$course';";
+    $query = mysqli_query($connection, $sql) or die ("Failed Accessing Exam_running");
+    $Exam_running = mysqli_fetch_row($query);
+    if ($Exam_running[0]==0){
+        $result = true;
+    }
+    else {
+        $result = false;
+    }
+    return $result;
+}
