@@ -1,7 +1,7 @@
 <?php
  //asig names
-        require_once 'includes/dbh.inc.php';
-        $sql = "SELECT studAsig, coursesExam_running FROM stud, courses WHERE studAsig = coursesAsig AND studUid = ?";
+        require_once 'dbh.inc.php';
+        $sql = "SELECT studAsig, coursesExam_running FROM stud, courses WHERE studAsig = coursesAsig AND studId = ?";
         $stmt = mysqli_stmt_init($connection);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
             header("location: ../signup.php?error=stmtfailed");//TODO
