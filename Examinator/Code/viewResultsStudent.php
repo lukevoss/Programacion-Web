@@ -1,0 +1,44 @@
+<?php
+    include_once 'header.php';
+    include_once 'includes/getResultData.inc.php';
+?>
+<body>
+    <h1>Exam Review</h1>
+    <?php
+    if($nfilas === 0){
+         echo "<h3>You have not participated in this exam yet.</h3>";
+    }else{
+        echo "<h2>" . $asig . "</h1>";
+        ?>
+        <table>
+            <tr>
+            <th>Topic</th>
+            <th>Question</th>
+            <th>1. Answer</th>
+            <th>2. Answer</th>
+            <th>3. Answer</th>
+            <th>4. Answer</th>
+            <th>Your Answer</th>
+            <th>Correct Answer</th>
+            </tr>
+        <?php
+        while($result = mysqli_fetch_assoc($resultData)){
+            echo "<tr>";
+            echo "<td>" . $result['questionsTopic'] . "</td>";
+            echo "<td>" . $result['questionsQuestion'] . "</td>";
+            echo "<td>" . $result['questionsAnswer_1'] . "</td>";
+            echo "<td>" . $result['questionsAnswer_2'] . "</td>";
+            echo "<td>" . $result['questionsAnswer_3'] . "</td>";
+            echo "<td>" . $result['questionsAnswer_4'] . "</td>";
+            echo "<td>" . $result['answersAnswer'] . "</td>";
+            echo "<td>" . $result['questionsCorrect_answer'] . "</td>";
+            echo "</tr>";
+            }
+        }
+        ?>
+        </table>
+</body>
+
+<?php
+    include_once 'footer.php'
+?>
