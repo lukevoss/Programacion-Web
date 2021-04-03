@@ -13,35 +13,22 @@
                 $asigName = $resultRow[0];
                 echo "<h3>$asigName</h3>";
                 ?>
-                <form action="editquestion.php" method="post">
+                <form action="viewResultsStudent.php" method="post">
                     <input type="hidden" name="asig" value=<?php echo $asigName; ?>>
                     <button type="submit" name="edit">view Results</button>
                 </form>
                 <?php
-                if(!$examRunning){
+                if($examRunning){
                     ?>
-                    <form action="includes/startExam.inc.php" method="post">
-                        <input type="hidden" name="asigRunning" value=<?php echo $asigName; ?>>
-                        <input type="hidden" name="start" value="start">
-                        <label for="numberQuestions">Number of Questions</label>
-                        <input type="number" min="1" max="999" step="1" value="20" name = "numberQuestions">
-                        <button type="submit" name="startExam" value = "test">start Exam</button>
-                    </form>
-                    <?php
-                }
-                else{
-                    ?>
-                    <form action="includes/stopExam.inc.php" method="post">
-                        <input type="hidden" name="asigRunning" value=<?php echo $asigName; ?>>
-                        <button type="submit" name="stopExam">stop Exam</button>
+                    <form action="exam.php" method="post">
+                        <button type="submit" name="startExam" value = <?php echo $asigName; ?>>start Exam</button>
                     </form>
                     <?php
                 }
                 ?>
                 </div>
                 <?php
-                }
-            
+                }           
         if (isset($_GET['error'])){
             echo "<p>Unexpected Error occured!</p>";
         }
