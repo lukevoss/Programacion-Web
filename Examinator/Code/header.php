@@ -22,7 +22,7 @@
                         }
                         //TODO
                         elseif($_SESSION["userpos"]==="Student"){
-                            echo "<li><a href='index.php'>Home</a></li>";
+                            echo "<li><a href='student.php'>Home</a></li>";
                         }
                         else {
                             echo "<li><a href='index.php'>Home</a></li>";

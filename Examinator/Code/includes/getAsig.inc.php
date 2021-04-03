@@ -11,7 +11,7 @@
         mysqli_stmt_bind_param($stmt, "s",$profId );
         mysqli_stmt_execute($stmt);
         $resultData = mysqli_stmt_get_result($stmt);
-        $nfilas = mysqli_stmt_num_rows($stmt);
+        $nfilas = mysqli_num_rows($resultData);
 
 // exam running
 
