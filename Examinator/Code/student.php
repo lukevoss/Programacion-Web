@@ -23,7 +23,7 @@
                     <?php
                     if($examRunning){
                         ?>
-                        <form action="exam.php" method="post">
+                        <form action="includes/student.inc.php" method="post">
                             <button type="submit" name="startExam" value = <?php echo $asigName; ?>>start Exam</button>
                         </form>
                         <?php
@@ -34,7 +34,15 @@
                     } 
             }          
         if (isset($_GET['error'])){
+            if ($_GET['error'] == "examalreadytaken") {
+                echo "<p>You already completed this Exam!</p>";
+            }
+            elseif ($_GET['error'] == "examover") {
+                echo "<p>The Exam ended bevore you submitted, your answers were not submitted! :(</p>";
+            }
+            else{
             echo "<p>Unexpected Error occured!</p>";
+            }
         }
         ?>
     </section>

@@ -48,5 +48,3 @@
      </nav>
 
 <div class = "wrapper">
-</body>
-</html>
