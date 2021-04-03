@@ -1,5 +1,10 @@
 <?php
     include_once 'header.php';
+    if (isset($_GET['error'])){
+        if ($_GET['error'] == "noStudent") {
+            echo "<h5>Since there is no Student enrolled in the course there are no results!</h5>";
+        }
+    }
 ?>
 <body>
     <h1>Welcome to the <abbr title="Student-destroy-Unit">SdU</abbr>!</h1>
