@@ -7,8 +7,10 @@
     <?php
     if($nfilas === 0){
          echo "<h3>You have not participated in this exam yet.</h3>";
-    }else{
-        echo "<h2>" . $asig . "</h1>";
+    }
+    else
+    {
+        echo "<h2>" . $asig . "</h2>";
         ?>
         <table>
             <tr>
@@ -22,6 +24,7 @@
             <th>Correct Answer</th>
             </tr>
         <?php
+        $correct = 0;
         while($result = mysqli_fetch_assoc($resultData)){
             echo "<tr>";
             echo "<td>" . $result['questionsTopic'] . "</td>";
@@ -33,12 +36,21 @@
             echo "<td>" . $result['answersAnswer'] . "</td>";
             echo "<td>" . $result['questionsCorrect_answer'] . "</td>";
             echo "</tr>";
+            if($result['answersAnswer'] === $result['questionsCorrect_answer']){
+                $correct = $correct+1;
             }
         }
-        ?>
-        </table>
+        echo"</table>";
+        $percent = round(($correct/$nfilas), 2)*100;
+        $grade = 0;
+        if($percent>50){
+            $grade = $percent/10;
+        }
+        echo "<h5> You have answered " . $correct . " questions out of " . $nfilas . " correctly. That are " . $percent . "%.</h5>";
+        echo "<h3>Grade : " . $grade . "</h3>";
+    } ?>
 </body>
 
 <?php
-    include_once 'footer.php'
+    include_once 'footer.php';
 ?>
