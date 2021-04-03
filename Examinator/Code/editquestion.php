@@ -1,11 +1,12 @@
 <?php
-    include_once 'header.php'
+    include_once 'header.php';
+    if(isset($_SESSION["userid"]) && $_SESSION["userpos"]==="Professor"){
 ?>
 <?php
-   if(isset($_POST['asig'])){
-       $_SESSION['course'] = $_POST['asig'];
-   }
-    echo "<h1>" . $_SESSION['course'] . "</h1>";
+    if(isset($_POST['asig'])){
+        $_SESSION['course'] = $_POST['asig'];
+    }
+        echo "<h1>" . $_SESSION['course'] . "</h1>";
 ?>
 <section class="add-questions-form">
     <h2>Add Question</h2>
@@ -160,5 +161,9 @@
 </section>
 
 <?php
+    }
+    else{
+        echo "<h1> Error: Access not granted</h1>";
+    }
     include_once 'footer.php'
 ?>

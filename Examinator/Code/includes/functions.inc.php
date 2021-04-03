@@ -184,6 +184,7 @@ function start_exam($asigName, $noQuestions, $connection){
     header("location: ../profe.php?");
     exit();
 }
+
 function stop_exam($asigName, $connection){
     $sql = "UPDATE `courses` SET `coursesExam_running` = '0' WHERE `courses`.`coursesAsig` = ?";
     $stmt = mysqli_stmt_init($connection);
