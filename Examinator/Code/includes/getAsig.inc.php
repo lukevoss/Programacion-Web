@@ -4,7 +4,7 @@
         $sql = "SELECT coursesAsig FROM `courses` WHERE coursesProfId = ?;";
         $stmt = mysqli_stmt_init($connection);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header("location: ../signup.php?error=stmtfailed");
+            die("something went wrong");
             exit();
         }
         $profId = $_SESSION["userid"];

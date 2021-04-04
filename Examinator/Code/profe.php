@@ -15,29 +15,34 @@
             require_once 'includes/functions.inc.php';
             if($nfilas>0){
                 foreach ($resultData as $asig){ //asig is now an array of one line.
-                    $asigName = implode("",$asig); //convert array to string
+                    $asigName = $asig['coursesAsig']; //convert array to string implode("",$asig)
                     echo "<h3>$asigName</h3>";
                     ?>
                     <form action="editquestion.php" method="post">
                         <input type="hidden" name="asig" value=<?php echo $asigName; ?>>
                         <button type="submit" name="edit">Edit Questions</button>
                     </form>
-                    <form action="TODO" method="post">
+                    <form action="viewResultsProfe.php" method="post">
+                        <input type="hidden" name="asig" value=<?php echo $asigName; ?>>
                         <button type="submit" name="results">View Results</button>
                     </form>
                     <?php
                     $examRunning = mysqli_fetch_row($examRunningSqli);
-                    //$eR = implode("",$examRunning);
+                    $noQuestions = getNumberOfQuestions($asigName,$connection);
                     if(!$examRunning[0]){
-                        ?>
-                        <form action="includes/startExam.inc.php" method="post">
-                            <input type="hidden" name="asigRunning" value=<?php echo $asigName; ?>>
-                            <input type="hidden" name="start" value="start">
-                            <label for="numberQuestions">Number of Questions</label>
-                            <input type="number" min="1" max="999" step="1" value="20" name = "numberQuestions">
-                            <button type="submit" name="startExam" value = "test">start Exam</button>
-                        </form>
-                        <?php
+                        if($noQuestions>= 1){
+                            ?>
+                            <form action="includes/startExam.inc.php" method="post">
+                                <input type="hidden" name="asigRunning" value=<?php echo $asigName; ?>>
+                                <input type="hidden" name="start" value="start">
+                                <label for="numberQuestions">Number of Questions</label>
+                                <input type="number" min="1" max=<?php echo $noQuestions; ?> step="1" value=<?php echo round($noQuestions/2,0); ?> name = "numberQuestions">
+                                <button type="submit" name="startExam" value = "test">start Exam</button>
+                            </form>
+                            <?php
+                        }else{
+                            echo "<h5>To be able to start the exam you have to add questions first!</h5>";
+                        }
                     }
                     else{
                         ?>

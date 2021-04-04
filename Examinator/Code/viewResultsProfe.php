@@ -6,7 +6,7 @@
     <h1>Exam Review</h1>
     <?php
     if($nfilas === 0){
-         echo "<h3>You have not participated in this exam yet.</h3>";
+         echo "<h3>No one has participated in this exam yet.</h3>";
     }
     else
     {
@@ -14,40 +14,50 @@
         ?>
         <table>
             <tr>
-            <th>Topic</th>
-            <th>Question</th>
-            <th>1. Answer</th>
-            <th>2. Answer</th>
-            <th>3. Answer</th>
-            <th>4. Answer</th>
-            <th>Your Answer</th>
-            <th>Correct Answer</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Points</th>
+            <th>Grade</th>
             </tr>
         <?php
-        $correct = 0;
+        $sumOfGradesReal = 0;
+        $sumOfGradesWithZero = 0;
+        $sumOfSobresalientes = 0;
+        $sumOfNotables = 0;
+        $sumOfAprobados = 0;
+        $sumOfSuspensos = 0;
         while($result = mysqli_fetch_assoc($resultData)){
-            echo "<tr>";
-            echo "<td>" . $result['questionsTopic'] . "</td>";
-            echo "<td>" . $result['questionsQuestion'] . "</td>";
-            echo "<td>" . $result['questionsAnswer_1'] . "</td>";
-            echo "<td>" . $result['questionsAnswer_2'] . "</td>";
-            echo "<td>" . $result['questionsAnswer_3'] . "</td>";
-            echo "<td>" . $result['questionsAnswer_4'] . "</td>";
-            echo "<td>" . $result['answersAnswer'] . "</td>";
-            echo "<td>" . $result['questionsCorrect_answer'] . "</td>";
-            echo "</tr>";
-            if($result['answersAnswer'] === $result['questionsCorrect_answer']){
-                $correct = $correct+1;
+            $grade = round($result['points']/$nQuestions,2)*10;
+            $sumOfGradesReal = $sumOfGradesReal + $grade;
+            if($grade >= 9){
+                $sumOfSobresalientes = $sumOfSobresalientes + 1;
+            }elseif($grade >= 7){
+                $sumOfNotables = $sumOfNotables + 1;
+            }elseif($grade >= 5){
+                $sumOfAprobados = $sumOfAprobados + 1;
+            }else{
+                $sumOfSuspensos = $sumOfSuspensos + 1;
+                $grade = 0;
             }
+            $sumOfGradesWithZero = $sumOfGradesWithZero + $grade;
+            echo "<tr>";
+            echo "<td>" . $result['studId'] . "</td>";
+            echo "<td>" . $result['usersName'] . "</td>";
+            echo "<td>" . $result['usersEmail'] . "</td>";
+            echo "<td>" . $result['points'] . "</td>";
+            echo "<td>" . $grade . "</td>";
+            echo "</tr>";
         }
         echo"</table>";
-        $percent = round(($correct/$nfilas), 2)*100;
-        $grade = 0;
-        if($percent>50){
-            $grade = $percent/10;
-        }
-        echo "<h5> You have answered " . $correct . " questions out of " . $nfilas . " correctly. That are " . $percent . "%.</h5>";
-        echo "<h3>Grade : " . $grade . "</h3>";
+        $avgGradeReal = $sumOfGradesReal/$nfilas;
+        $avgGradeZero = $sumOfGradesWithZero/$nfilas;
+        echo "<h3>average grade from 0 to 10: " . $avgGradeZero . "</h3>";
+        echo "<h3>average grade of the actual final grades: " . $avgGradeReal . "</h3>";
+        echo "<h3>Number of Sobresalientes: " . $sumOfSobresalientes . "/" . $nfilas . "</h3>";
+        echo "<h3>Number of Notables: " . $sumOfNotables . "/" . $nfilas . "</h3>";
+        echo "<h3>Number of Aprobados: " . $sumOfAprobados . "/" . $nfilas . "</h3>";
+        echo "<h3>Number of Suspensos: " . $sumOfSuspensos . "/" . $nfilas . "</h3>";
     } ?>
 </body>
 

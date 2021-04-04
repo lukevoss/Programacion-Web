@@ -1,5 +1,20 @@
 <?php
 
+function getNumberOfQuestions($asigName, $connection){
+    $sql = "SELECT count(*) as noQuestions FROM questions WHERE questionsAsig = ?;";
+    $stmt = mysqli_stmt_init($connection);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        die("something went wrong");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "s",$asigName );
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+    $resultArray = mysqli_fetch_assoc($resultData);
+    $noQuestions = $resultArray['noQuestions'];
+    return $noQuestions;
+}
+
 function emptyInputSignup($name, $email, $username, $pwd, $pwdRepeat, $position){
     $result = true;
     if(empty($name) || empty($email)||empty($username)||empty($pwd)||empty($pwdRepeat)||empty($position)){
