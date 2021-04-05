@@ -6,7 +6,8 @@ if (isset($_POST['startExam'])){
     require_once 'dbh.inc.php';
     require_once 'functions.inc.php';
     $idUser= $_SESSION['userid'];
-    $course=$_SESSION['course'];
+    $course=$_POST['startExam'];
+    $_SESSION['course'] = $course;
     
     if (examAlreadyTaken($connection, $idUser, $course)){
         header("location: ../student.php?error=examalreadytaken");
