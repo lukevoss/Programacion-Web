@@ -52,8 +52,8 @@
         echo"</table>";
         $avgGradeReal = $sumOfGradesReal/$nfilas;
         $avgGradeZero = $sumOfGradesWithZero/$nfilas;
-        echo "<h3>average grade from 0 to 10: " . $avgGradeZero . "</h3>";
-        echo "<h3>average grade of the actual final grades: " . $avgGradeReal . "</h3>";
+        echo "<h3>average grade from 0 to 10: " . $avgGradeReal . "</h3>";
+        echo "<h3>average grade of the actual final grades: " . $avgGradeZero . "</h3>";
         echo "<h3>Number of Sobresalientes: " . $sumOfSobresalientes . "/" . $nfilas . "</h3>";
         echo "<h3>Number of Notables: " . $sumOfNotables . "/" . $nfilas . "</h3>";
         echo "<h3>Number of Aprobados: " . $sumOfAprobados . "/" . $nfilas . "</h3>";
