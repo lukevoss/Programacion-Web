@@ -17,14 +17,14 @@
                     echo "<h3>$asigName</h3>";
                     ?>
                     <form action="viewResultsStudent.php" method="post">
-                        <input type="hidden" name="asig" value=<?php echo $asigName; ?>>
+                        <input type="hidden" name="asig" value='<?php echo "$asigName"; ?>'>
                         <button type="submit" name="edit">view Results</button>
                     </form>
                     <?php
                     if($examRunning){
                         ?>
                         <form action="includes/student.inc.php" method="post">
-                            <button type="submit" name="startExam" value = <?php echo $asigName; ?>>start Exam</button>
+                            <button type="submit" name="startExam" value = '<?php echo $asigName; ?>'>start Exam</button>
                         </form>
                         <?php
                     }
