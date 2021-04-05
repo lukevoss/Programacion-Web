@@ -60,7 +60,7 @@ if(isset($_SESSION["userid"]) && $_SESSION["userpos"]==="Admin"){
                 $nrows = mysqli_num_rows($query);
                 if($nrows >0){
             ?>
-            <form action="includes/delete.inc.php" method="post">
+            <form action="includes/deleteOrAddAsig.inc.php" method="post">
                 <table>
                 <tr>
                 <th>ID</th>
@@ -81,12 +81,13 @@ if(isset($_SESSION["userid"]) && $_SESSION["userpos"]==="Admin"){
                     echo "<td>" . $result['usersUid'] . "</td>";
                     echo "<td>" . $result['usersPwd'] . "</td>";
                     echo "<td>" . $result['usersPos'] . "</td>";
-                    echo "<td><input type='checkbox' name='delete[]' value='" . $result['usersId'] . "'></td>";
+                    echo "<td><input type='checkbox' name='select[]' value='" . $result['usersId'] . "'></td>";
                     echo "</tr>";
                 }
                 ?>
                 </table>
                 <input type="submit" name="deleteuser" value="Delete Users">
+                <input type="submit" name="asignAsig" value="Asign to">
             </form>
             <?php
                 }
