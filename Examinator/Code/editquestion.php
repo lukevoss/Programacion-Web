@@ -152,7 +152,10 @@
         </div>
         <?php
         if (isset($_GET['deleteerror'])){
-            if ($_GET['deleteerror'] == "none") {
+            if ($_GET['deleteerror'] == "examrunning") {
+                echo "<p>You cant delete courses if there are currently Exams!</p>";
+            }
+            elseif ($_GET['deleteerror'] == "none") {
                 echo "<p>Questions have been deleted!</p>";
             }
         }

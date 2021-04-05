@@ -48,53 +48,48 @@ if(isset($_SESSION["userid"]) && $_SESSION["userpos"]==="Admin"){
         <div class="delete-form-form">
             <?php
                 require_once 'includes/dbh.inc.php';
-                $sql = "select * from courses where coursesFaculty = '" . $_SESSION['userfaculty'] . "' order by coursesAsig asc;";
+                $sql = "select * from courses,users where coursesFaculty = '" . $_SESSION['userfaculty'] . "' and coursesProfId = usersId order by coursesAsig asc;";
                 $query = mysqli_query($connection, $sql) or die ("Failed Access to Table, check SQL");
                 $nrows = mysqli_num_rows($query);
                 if($nrows >0){
             ?>
-            <form action="includes/deletequestions.inc.php" method="post">
+            <form action="includes/deletecourses.inc.php" method="post">
                 <table>
                 <tr>
-                <th>Topic</th>
-                <th>ID</th>
-                <th>Question</th>
-                <th>1. Answer</th>
-                <th>2. Answer</th>
-                <th>3. Answer</th>
-                <th>4. Answer</th>
-                <th>Correct Answer</th>
+                <th>Course</th>
+                <th>Professor</th>
+                <th>Exam Running</th>
+                <th>Delete</th>
+
                 </tr>
                 <?php
                 for ($i = 0; $i<$nrows; $i++){
                     $result = mysqli_fetch_array($query);
                     echo "<tr>";
-                    echo "<td>" . $result['questionsTopic'] . "</td>";
-                    echo "<td>" . $result['questionsQuestion_id'] . "</td>";
-                    echo "<td>" . $result['questionsQuestion'] . "</td>";
-                    echo "<td>" . $result['questionsAnswer_1'] . "</td>";
-                    echo "<td>" . $result['questionsAnswer_2'] . "</td>";
-                    echo "<td>" . $result['questionsAnswer_3'] . "</td>";
-                    echo "<td>" . $result['questionsAnswer_4'] . "</td>";
-                    echo "<td>" . $result['questionsCorrect_answer'] . "</td>";
-                    echo "<td><input type='checkbox' name='delete[]' value='" . $result['questionsQuestion_id'] . "'></td>";
+                    echo "<td>" . $result['coursesAsig'] . "</td>";
+                    echo "<td>" . $result['usersName'] . "</td>";
+                    echo "<td>" . $result['coursesExam_running'] . "</td>";
+                    echo "<td><input type='checkbox' name='delete[]' value='" . $result['coursesAsig'] . "'></td>";
                     echo "</tr>";
                 }
                 ?>
                 </table>
-                <input type="submit" name="deletequestions" value="Delete Questions">
+                <input type="submit" name="deletecourses" value="Delete Courses">
             </form>
             <?php
                 }
                 else {
-                    echo "There are currently no questions in this course";
+                    echo "There are currently no courses in this faculty";
                 }
             ?>
         </div>
         <?php
         if (isset($_GET['deleteerror'])){
+            if ($_GET['deleteerror'] == "examrunning") {
+                echo "<p>You cant delete Courses if they have currently Exams!</p>";
+            }
             if ($_GET['deleteerror'] == "none") {
-                echo "<p>Questions have been deleted!</p>";
+                echo "<p>Courses have been deleted!</p>";
             }
         }
         ?>

@@ -1,5 +1,9 @@
 <?php
 if (isset($_POST['deleteuser']) && isset($_POST['select'])) {
+    if (!(isset($_POST['select']))){
+        header("location: ../signup.php");
+        exit();
+    }
     $select = $_POST['select'];
     $nrows = count($select);
 
