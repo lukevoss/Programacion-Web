@@ -45,7 +45,7 @@
             echo "<td>" . $result['studId'] . "</td>";
             echo "<td>" . $result['usersName'] . "</td>";
             echo "<td>" . $result['usersEmail'] . "</td>";
-            echo "<td>" . $result['points'] . "</td>";
+            echo "<td>" . $result['points'] . "/" . $nQuestions . "</td>";
             echo "<td>" . $grade . "</td>";
             echo "</tr>";
         }
