@@ -7,11 +7,11 @@
 <?php
     require_once 'includes/dbh.inc.php';
     require_once 'includes/functions.inc.php';
-    if (isset($_POST['startExam']))
+    if (isset($_SESSION["course"]))
     {
-        $course = $_POST['startExam'];
-        $_SESSION['course'] = $course;
+        $course = $_SESSION["course"];
         if(examOver($connection, $course)){
+            unset($_SESSION["course"]);
             header("location: ../student.php?error=examover");
             exit();
         }
@@ -22,6 +22,7 @@
         $nQuestions = $result_course['coursesNoQuestions'];
         $examRunning = $result_course['coursesExam_running'];
         if (!$examRunning){
+            unset($_SESSION["course"]);
             header("location: ../student.php?error=examnotstarted");
             exit(); 
         }

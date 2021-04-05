@@ -10,11 +10,13 @@ if (isset($_POST['startExam'])){
     $_SESSION['course'] = $course;
     
     if (examAlreadyTaken($connection, $idUser, $course)){
+        unset($_SESSION['course']);
         header("location: ../student.php?error=examalreadytaken");
         exit();
     }
 
     if (examOver($connection, $course)){
+        unset($_SESSION['course']);
         header("location: ../student.php?error=examover");
         exit();
     }

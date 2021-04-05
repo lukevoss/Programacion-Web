@@ -221,8 +221,8 @@ function deleteQuestion($connection, $questionId){
 function examAlreadyTaken($connection, $idUser, $course){
     $result = true;
     $sql_Done = "Select Distinct answersUid from answers where answersUid = '$idUser' and answersAsig = '$course';";
-    $query_Done = mysqli_query($connection, $sql_Done);
-    $result_Done = mysqli_fetch_row($query_Done) or die("Failed to Access Database");
+    $query_Done = mysqli_query($connection, $sql_Done) or die("Failed to Access Database");
+    $result_Done = mysqli_fetch_row($query_Done);
     if (isset($result_Done[0])){
         $result = true;
     }
