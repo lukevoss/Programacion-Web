@@ -72,8 +72,8 @@ function uidExists($connection, $username, $email){
     mysqli_stmt_close($stmt);
 }
 
-function createUser($connection, $name, $email, $username, $pwd, $position){
-    $sql = "Insert into users (usersName, usersEmail, usersUid, usersPwd, usersPos) values (?,?,?,?,?);";
+function createUser($connection, $name, $email, $username, $pwd, $position, $faculty){
+    $sql = "Insert into users (usersName, usersEmail, usersUid, usersPwd, usersPos, usersFaculty) values (?,?,?,?,?,?);";
     $stmt = mysqli_stmt_init($connection);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         header("location: ../signup.php?error=stmtfailed");
@@ -120,6 +120,7 @@ function loginUser($connection, $username, $pwd){
         $_SESSION["useruid"] = $uidExists["usersUid"];
         $_SESSION["userName"] = $uidExists["usersName"];
         $_SESSION["userpos"] = $uidExists["usersPos"];
+        $_SESSION["userfaculty"] = $uidExists["usersFaculty"];
         //TODO send to Home page
         if($_SESSION["userpos"]==="Professor"){
             header("location: ../profe.php");
