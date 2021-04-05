@@ -250,3 +250,50 @@ function examOver($connection, $course){
     }
     return $result;
 }
+
+function emptyInputCourse($course, $profId){
+    $result = true;
+    if(empty($course) || empty($profId))
+        $result = true;
+    elseif (ctype_space($course))
+        $result = true;
+    else $result = false;
+    return $result;
+}
+
+function courseAlreadyExists($connection, $course){
+    $sql = "select * from courses where coursesAsig = ?";
+    $stmt = mysqli_stmt_init($connection);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../editcourses.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "s", $course);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    if (mysqli_fetch_assoc($resultData)) {
+        return true;
+    }
+    else{
+        return false;
+    }
+
+    mysqli_stmt_close($stmt);
+}
+
+function createCourse($connection, $course, $profId, $faculty){
+    $sql = "Insert into courses (coursesProfId, coursesAsig, coursesExam_running, coursesNoQuestions, coursesFaculty) values (?,?,?,?,?);";
+    $stmt = mysqli_stmt_init($connection);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../editcourse.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "sssss", $profId, $course, 0, 0, $faculty);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    header("location: ../editcourses.php?error=none");
+        exit();
+}

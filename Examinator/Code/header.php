@@ -22,10 +22,15 @@
                             echo $_SESSION['userfaculty'];
                             echo "<li><a href='profe.php'>Home</a></li>";
                         }
-                        //TODO
                         elseif($_SESSION["userpos"]==="Student"){
                             echo $_SESSION['userfaculty'];
                             echo "<li><a href='student.php'>Home</a></li>";
+                        }
+                        elseif($_SESSION["userpos"]==="Admin"){
+                            echo $_SESSION['userfaculty'];
+                            echo "<li><a href='index.php'>Home</a></li>";
+                            echo "<li><a href='signup.php'>Administration User</a></li>";
+                            echo "<li><a href='editcourses.php'>Add Courses</a></li>";
                         }
                         else {
                             echo $_SESSION['userfaculty'];
@@ -35,11 +40,8 @@
                     else{
                         echo "<li><a href='index.php'>Home</a></li>";
                     }
-                    //Signup/Login/Logout
+                    //Login/Logout
                     if (isset($_SESSION["useruid"])) {
-                        if($_SESSION["userpos"]==="Admin"){
-                            echo "<li><a href='signup.php'>Administration User</a></li>";
-                        }
                        echo "<li><a href='includes/logout.inc.php'>Log out</a></li>"; 
                     }
                     else{
