@@ -125,6 +125,10 @@ function loginUser($connection, $username, $pwd){
             header("location: ../profe.php");
             exit();
         }
+        if($_SESSION["userpos"]==="Student"){
+            header("location: ../student.php");
+            exit();
+        }
 
         header("location: ../index.php");
         exit();
