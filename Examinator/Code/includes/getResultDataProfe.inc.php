@@ -31,10 +31,10 @@
 
 //// real sql to get data.. count counts only correct answers for each student ////
   
-    $sql = "SELECT first.studId, first.usersName, first.usersEmail, second.points 
-    FROM (SELECT distinct studId, usersName, usersEmail FROM stud, users, answers WHERE studAsig = ? AND  studId = usersId AND answersUid = studId AND answersAsig = ?) AS first 
-    LEFT JOIN 
-    (SELECT studId, COUNT(*) AS points FROM stud, users, questions, answers WHERE studAsig = ? AND studAsig = questionsAsig AND studId = usersId AND questionsQuestion_id = answersQuestion_id AND questionsCorrect_answer = answersAnswer GROUP BY studId) AS second ON first.studId = second.studId";
+$sql = "SELECT first.studId, first.usersName, first.usersEmail, second.points \n"
+. "FROM (SELECT distinct studId, usersName, usersEmail FROM stud, users, answers WHERE studAsig = ? AND  studId = usersId AND answersUid = studId AND answersAsig = ?) AS first \n"
+. "LEFT JOIN \n"
+. "(SELECT studId, COUNT(*) AS points FROM stud, users, questions, answers WHERE studAsig = ? AND studAsig = questionsAsig AND studId = usersId AND questionsQuestion_id = answersQuestion_id AND questionsCorrect_answer = answersAnswer AND answersUid = studId GROUP BY studId) AS second ON first.studId = second.studId ORDER BY usersName";
     $stmt = mysqli_stmt_init($connection);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         die("someting went wrong!");//TODO
