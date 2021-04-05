@@ -1,6 +1,10 @@
 <?php
     $studID = $_SESSION["userid"];
-    $asig = $_POST["asig"];
+    if(isset($_POST["asig"])){
+        $asig = $_POST["asig"];
+    }else{
+        $asig = $_SESSION["course"];
+    }
     require_once 'includes/dbh.inc.php';
     $sql = "SELECT * FROM questions, answers WHERE questionsAsig = answersAsig AND questionsQuestion_id = answersQuestion_id AND answersUid = ? AND answersAsig = ?";
     $stmt = mysqli_stmt_init($connection);
