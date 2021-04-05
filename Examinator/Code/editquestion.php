@@ -19,7 +19,7 @@
             //show all Topics from that course
             require_once "includes/dbh.inc.php";
             //$sql = "select distinct questionsTopic from questions where questionsAsig = " . $course .";";
-            $sql = "select questionsTopic from questions where questionsAsig ='".  $_SESSION['course'] ."';";
+            $sql = "select distinct questionsTopic from questions where questionsAsig ='".  $_SESSION['course'] ."';";
             $query = mysqli_query($connection, $sql) or die ("Ups, something went wrong!");
             $nrows = mysqli_num_rows($query);
             //BETTER for each

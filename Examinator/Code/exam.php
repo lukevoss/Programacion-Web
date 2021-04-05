@@ -15,6 +15,7 @@
             header("location: ../student.php?error=examover");
             exit();
         }
+        
 
         $sql_numQuestions = "select * from courses where coursesAsig = '".$course."';";
         $query_course = mysqli_query($connection, $sql_numQuestions) or die ("Wrong SQL Command");
@@ -26,13 +27,14 @@
             header("location: ../student.php?error=examnotstarted");
             exit(); 
         }
-        /*$sql_topics = "select questionsTopic from questions where questionsAsig = $course";
+        //Topics
+        $sql_topics = "select distinct questionsTopic from questions where questionsAsig = '$course'";
         $query_topics = mysqli_query($connection, $sql_topics) or die ("Wrong SQL Command");
-        $nTopics = mysqli_num_rows($query_topics);*/
-        //TODO: Kp mehr wie ich hier eine gleichmäßige verteilung der Themen erziehlen kann
-        //generate Questions
-        $sql_questions = "select * from questions where questionsAsig ='".$course."' order by rand() limit $nQuestions;";
-        $query_questions = mysqli_query($connection, $sql_questions) or die("Can't connect to Database, wrong SQL Code");
+        $nTopics = mysqli_num_rows($query_topics);
+        //Questions
+        $nQuestionsPerTopic = round(($nQuestions/$nTopics),0);
+        $sql_questionsPerTopic = "CALL GetXRandQuestionsForEachTopic('$course',$nQuestionsPerTopic);";
+        $query_questions = mysqli_query($connection, $sql_questionsPerTopic) or die("Can't connect to Database, wrong SQL Code");
         echo "<form action='includes/exam.inc.php' method='post'>";
         $questions = [];
         for($i = 0; $i<$nQuestions;$i++){
@@ -40,6 +42,7 @@
             $id =  $question['questionsQuestion_id'];
             $questions[$i] = $id;
             echo "<h3>" . $question['questionsQuestion'] . "</h3>";
+            echo "<h5>Topic: " . $question['questionsTopic'] . "</h5>";
             
             //Answer 1
             echo "<input type='radio' name='". $id ."' id='1' value='1'>";
