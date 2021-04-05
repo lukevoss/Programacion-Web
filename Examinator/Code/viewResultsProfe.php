@@ -5,7 +5,7 @@
 <body>
     <h1>Exam Review</h1>
     <?php
-    if($nfilas === 0){
+    if($nQuestions == 0){
          echo "<h3>No one has participated in this exam yet.</h3>";
     }
     else
@@ -28,7 +28,12 @@
         $sumOfAprobados = 0;
         $sumOfSuspensos = 0;
         while($result = mysqli_fetch_assoc($resultData)){
-            $grade = round($result['points']/$nQuestions,2)*10;
+            if($result['points'] == NULL){
+                $points = 0;
+            }else{
+                $points = $result['points'];
+            }
+            $grade = round($points/$nQuestions,2)*10;
             $sumOfGradesReal = $sumOfGradesReal + $grade;
             if($grade >= 9){
                 $sumOfSobresalientes = $sumOfSobresalientes + 1;
@@ -45,13 +50,13 @@
             echo "<td>" . $result['studId'] . "</td>";
             echo "<td>" . $result['usersName'] . "</td>";
             echo "<td>" . $result['usersEmail'] . "</td>";
-            echo "<td>" . $result['points'] . "/" . $nQuestions . "</td>";
+            echo "<td>" . $points . "/" . $nQuestions . "</td>";
             echo "<td>" . $grade . "</td>";
             echo "</tr>";
         }
         echo"</table>";
-        $avgGradeReal = $sumOfGradesReal/$nfilas;
-        $avgGradeZero = $sumOfGradesWithZero/$nfilas;
+        $avgGradeReal = $sumOfGradesReal/$nQuestions;
+        $avgGradeZero = $sumOfGradesWithZero/$nQuestions;
         echo "<h3>average grade from 0 to 10: " . $avgGradeReal . "</h3>";
         echo "<h3>average grade of the actual final grades: " . $avgGradeZero . "</h3>";
         echo "<h3>Number of Sobresalientes: " . $sumOfSobresalientes . "/" . $nfilas . "</h3>";

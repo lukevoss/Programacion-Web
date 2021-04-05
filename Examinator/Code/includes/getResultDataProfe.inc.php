@@ -17,27 +17,30 @@
         header("location: profe.php?error=noStudent");
         exit();
     }
-    $studId= $studentArray[0];
-    $sql = "SELECT * FROM questions, answers WHERE questionsAsig = answersAsig AND questionsQuestion_id = answersQuestion_id AND answersUid = ? AND answersAsig = ?";
+    $sql = "SELECT COUNT(*) AS nQuestions FROM questions, answers WHERE questionsAsig = answersAsig AND questionsQuestion_id = answersQuestion_id AND answersAsig = ? GROUP BY answersUid LIMIT 1";
     $stmt = mysqli_stmt_init($connection);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         die("something went wrong");//TODO
         exit();
     }
-    mysqli_stmt_bind_param($stmt, "ss",$studId, $asig );
+    mysqli_stmt_bind_param($stmt, "s", $asig );
     mysqli_stmt_execute($stmt);
     $aux = mysqli_stmt_get_result($stmt);
-    $nQuestions = mysqli_num_rows($aux);
+    $array = mysqli_fetch_assoc($aux);
+    $nQuestions = $array['nQuestions'];
 
 //// real sql to get data.. count counts only correct answers for each student ////
   
-    $sql = "SELECT studId, usersName, usersEmail, COUNT(*) AS points FROM stud, users, questions, answers WHERE studAsig = ? AND studAsig = questionsAsig AND studId = usersId AND questionsQuestion_id = answersQuestion_id AND questionsCorrect_answer = answersAnswer GROUP BY studId ORDER BY usersName";
+    $sql = "SELECT first.studId, first.usersName, first.usersEmail, second.points 
+    FROM (SELECT distinct studId, usersName, usersEmail FROM stud, users, answers WHERE studAsig = ? AND  studId = usersId AND answersUid = studId AND answersAsig = ?) AS first 
+    LEFT JOIN 
+    (SELECT studId, COUNT(*) AS points FROM stud, users, questions, answers WHERE studAsig = ? AND studAsig = questionsAsig AND studId = usersId AND questionsQuestion_id = answersQuestion_id AND questionsCorrect_answer = answersAnswer GROUP BY studId) AS second ON first.studId = second.studId";
     $stmt = mysqli_stmt_init($connection);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         die("someting went wrong!");//TODO
         exit();
     }
-    mysqli_stmt_bind_param($stmt, "s", $asig );
+    mysqli_stmt_bind_param($stmt, "sss", $asig, $asig, $asig );
     mysqli_stmt_execute($stmt);
     $resultData = mysqli_stmt_get_result($stmt);
     $nfilas = mysqli_num_rows($resultData);
