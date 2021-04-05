@@ -30,7 +30,7 @@
                             echo $_SESSION['userfaculty'];
                             echo "<li><a href='index.php'>Home</a></li>";
                             echo "<li><a href='signup.php'>Administration User</a></li>";
-                            echo "<li><a href='editcourses.php'>Add Courses</a></li>";
+                            echo "<li><a href='editcourses.php'>Aministration Courses</a></li>";
                         }
                         else {
                             echo $_SESSION['userfaculty'];

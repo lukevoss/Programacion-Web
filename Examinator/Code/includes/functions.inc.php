@@ -334,7 +334,9 @@ function createCourse($connection, $course, $profId, $faculty){
         header("location: ../editcourse.php?error=stmtfailed");
         exit();
     }
-    mysqli_stmt_bind_param($stmt, "sssss", $profId, $course, "0", "20", $faculty);
+    $examRunning = 0;
+    $noQuestions = 20;
+    mysqli_stmt_bind_param($stmt, "ssiis", $profId, $course, $examRunning, $noQuestions, $faculty);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     header("location: ../editcourses.php?error=none");
@@ -345,15 +347,15 @@ function examRunning($connection, $course){
     $sql = "select coursesExam_running from courses where coursesAsig = '$course'";
     $query = mysqli_query($connection, $sql) or die ("Failed to check if Exam is Running");
     $result = mysqli_fetch_row($query);
-    if($result['coursesExam_running']==0){
+    if($result[0]==1){
         return true;
     }
     else return false;
 }
 
 function deleteCourse($connection, $course){
-    $sql_courses = "delete from courses where coursesAsig = $course";
-    $sql_answers = "delete from answers where answersAsig = $course";
+    $sql_courses = "delete from courses where coursesAsig = '$course'";
+    $sql_answers = "delete from answers where answersAsig = '$course'";
     mysqli_query($connection, $sql_courses) or die ("Failed to delete Course");
-    mysqli_query($connection, $sql_answers) or die ("Failed to delete Course");
+    mysqli_query($connection, $sql_answers);
 }
