@@ -15,16 +15,20 @@
         <div class="wrapper">
             <ul>
                 <?php
+                    
                     //Home
                     if (isset($_SESSION["useruid"])) {
                         if($_SESSION["userpos"]==="Professor"){
+                            echo $_SESSION['userfaculty'];
                             echo "<li><a href='profe.php'>Home</a></li>";
                         }
                         //TODO
                         elseif($_SESSION["userpos"]==="Student"){
+                            echo $_SESSION['userfaculty'];
                             echo "<li><a href='student.php'>Home</a></li>";
                         }
                         else {
+                            echo $_SESSION['userfaculty'];
                             echo "<li><a href='index.php'>Home</a></li>";
                         }
                     }

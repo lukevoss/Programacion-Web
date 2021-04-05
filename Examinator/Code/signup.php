@@ -4,6 +4,7 @@
 
 <?php
 if(isset($_SESSION["userid"]) && $_SESSION["userpos"]==="Admin"){
+    echo "<h1>" . $_SESSION['userfaculty'] . "</h1>";
 ?>
     <section class="signup-form">
         <h2>Sign Up User</h2>
@@ -55,7 +56,7 @@ if(isset($_SESSION["userid"]) && $_SESSION["userpos"]==="Admin"){
         <div class="delete-form-form">
             <?php
                 require_once 'includes/dbh.inc.php';
-                $sql = "select * from users where usersID <> " . $_SESSION['userid'] . " order by usersName asc;";
+                $sql = "select * from users where usersID <> " . $_SESSION['userid'] . " and usersFaculty = '" . $_SESSION['userfaculty'] . "' order by usersName asc;";
                 $query = mysqli_query($connection, $sql) or die ("Failed Access to Table, check SQL");
                 $nrows = mysqli_num_rows($query);
                 if($nrows >0){
