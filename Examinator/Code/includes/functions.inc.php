@@ -24,7 +24,7 @@ function addAsig($connection, $studId ,$asigName){
         mysqli_stmt_execute($stmt);
         $resultData = mysqli_stmt_get_result($stmt);
         $resultArray = mysqli_fetch_row($resultData);
-        if($resultArray[1]==0){
+        if($resultArray[0]==0){
     
             // insert
             $sql = "INSERT INTO `stud` (`studId`, `studAsig`) VALUES (?, ?);";
@@ -35,6 +35,7 @@ function addAsig($connection, $studId ,$asigName){
             }
             mysqli_stmt_bind_param($stmt, "ss",$studId, $asigName );
             mysqli_stmt_execute($stmt);
+            return true;
         }else{
             return false;
         }

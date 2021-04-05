@@ -97,7 +97,7 @@ if(isset($_SESSION["userid"]) && $_SESSION["userpos"]==="Admin"){
                     <?php
                     //show all asignaturas
                     require_once "includes/dbh.inc.php";
-                    $sql = "select distinct coursesAsig from courses";
+                    $sql = "select distinct coursesAsig from courses where coursesFaculty = '" . $_SESSION['userfaculty'] . "';";
                     $query = mysqli_query($connection, $sql) or die ("Ups, something went wrong!");
                     $nrows = mysqli_num_rows($query);
                     //BETTER for each
