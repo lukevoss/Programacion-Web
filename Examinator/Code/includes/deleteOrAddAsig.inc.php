@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST['deleteuser'])) {
+if (isset($_POST['deleteuser']) && isset($_POST['select'])) {
     $select = $_POST['select'];
     $nrows = count($select);
 
@@ -11,17 +11,19 @@ if (isset($_POST['deleteuser'])) {
     }
     header("location: ../signup.php?deleteerror=none");
     exit();
-}elseif (isset($_POST['addAsig']) && isset($_POST['asigName'])) {
+}elseif (isset($_POST['assignAsig']) && isset($_POST['asigName']) && isset($_POST['select'])) {
     $select = $_POST['select'];
     $nrows = count($select);
     $asigName = $_POST['asigName'];
 
     require_once 'dbh.inc.php';
     require_once 'functions.inc.php';
-
+    $error = "none";
     for ($i = 0; $i<$nrows; $i++){
-        addAsig($connection, $select[$i],$asigName);
+        if(!addAsig($connection, $select[$i],$asigName)){
+            $error = "notastudent";
+        }
     }
-    header("location: ../signup.php?error=none");
+    header("location: ../signup.php?error=" . $error);
     exit();
 }
