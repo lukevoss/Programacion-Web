@@ -42,7 +42,10 @@ if(isset($_SESSION["userid"]) && $_SESSION["userpos"]==="Admin"){
             elseif ($_GET['error'] == "usernametaken") {
                 echo "<p>Username already taken!</p>";
             }
-            elseif ($_GET['error'] == "none") {
+            elseif($_GET['error'] == "notastudent" ){
+                echo "<h4>At least one of the users was either not a Student or is enrolled in the course already. All the students have been assigned to the course successfully.</h4>";
+            }
+            elseif ($_GET['error'] == "nonesignup") {
                 echo "<p>User is signed up!</p>";
             }
         }
@@ -87,7 +90,24 @@ if(isset($_SESSION["userid"]) && $_SESSION["userpos"]==="Admin"){
                 ?>
                 </table>
                 <input type="submit" name="deleteuser" value="Delete Users">
-                <input type="submit" name="asignAsig" value="Asign to">
+                <input type="submit" name="assignAsig" value="Assign to">
+                <Label for="asigName">Course:</Label>
+                <select name="asigName" id="asigName">
+                    <?php
+                    //show all asignaturas
+                    require_once "includes/dbh.inc.php";
+                    $sql = "select distinct coursesAsig from courses";
+                    $query = mysqli_query($connection, $sql) or die ("Ups, something went wrong!");
+                    $nrows = mysqli_num_rows($query);
+                    //BETTER for each
+                    for($i = 0; $i<$nrows; $i++){
+                        $result = mysqli_fetch_array($query);
+                        //replace all whitespaces to get a unique value without spaces
+                        echo "<option value='" . $result['coursesAsig'] . "'>" . $result['coursesAsig'] . "</option>";
+                    }
+                    ?>
+                </select>
+
             </form>
             <?php
                 }

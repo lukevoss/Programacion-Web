@@ -1,4 +1,47 @@
 <?php
+function addAsig($connection, $studId ,$asigName){
+    //check if its really a student
+    $sql = "SELECT usersPos FROM users WHERE usersId = ?;";
+    $stmt = mysqli_stmt_init($connection);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        die("something went wrong");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "s",$studId );
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+    $resultArray = mysqli_fetch_assoc($resultData);
+    if($resultArray['usersPos']==="Student"){
+        //check if student is not enrolled already in this course
+
+        $sql = "SELECT COUNT(*) FROM stud WHERE studId = ? AND studAsig = ?;";
+        $stmt = mysqli_stmt_init($connection);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            die("something went wrong");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt, "ss",$studId, $asigName);
+        mysqli_stmt_execute($stmt);
+        $resultData = mysqli_stmt_get_result($stmt);
+        $resultArray = mysqli_fetch_row($resultData);
+        if($resultArray[1]==0){
+    
+            // insert
+            $sql = "INSERT INTO `stud` (`studId`, `studAsig`) VALUES (?, ?);";
+            $stmt = mysqli_stmt_init($connection);
+            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                die("something went wrong");
+                exit();
+            }
+            mysqli_stmt_bind_param($stmt, "ss",$studId, $asigName );
+            mysqli_stmt_execute($stmt);
+        }else{
+            return false;
+        }
+    }else{
+        return false;
+    }
+}
 
 function getNumberOfQuestions($asigName, $connection){
     $sql = "SELECT count(*) as noQuestions FROM questions WHERE questionsAsig = ?;";
@@ -85,7 +128,7 @@ function createUser($connection, $name, $email, $username, $pwd, $position, $fac
     mysqli_stmt_bind_param($stmt, "sssss", $name, $email, $username, $hashedPwd, $position);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    header("location: ../signup.php?error=none");
+    header("location: ../signup.php?error=nonesignup");
         exit();
 }
 
