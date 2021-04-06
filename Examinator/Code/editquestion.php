@@ -76,7 +76,7 @@
             </tr>
         </table>
         <?php
-        echo "<input type='hidden' name='course' value =". $_SESSION['course'] .">";
+        echo "<input type='hidden' name='course' value ='". $_SESSION['course'] ."'>";
         ?>
         <input type="submit" name="addquestion" value="Add Question">
     </form>
