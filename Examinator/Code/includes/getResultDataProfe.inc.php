@@ -26,8 +26,11 @@
     mysqli_stmt_bind_param($stmt, "s", $asig );
     mysqli_stmt_execute($stmt);
     $aux = mysqli_stmt_get_result($stmt);
-    $array = mysqli_fetch_assoc($aux);
-    $nQuestions = $array['nQuestions'];
+    if($array = mysqli_fetch_assoc($aux)){
+        $nQuestions = $array['nQuestions'];
+    }else{
+        $nQuestions = 0;
+    }
 
 //// real sql to get data.. count counts only correct answers for each student ////
   
