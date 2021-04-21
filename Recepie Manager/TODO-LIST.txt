@@ -1,0 +1,43 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	Programmier-Forum und TODO Manager
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Funktionen der Webseite:
+````````````````````````
+
+USER:
+
+TODO	Creates Recipe
+TODO		Adds Ingredients that are not yet existent
+TODO	Can see through Recipes (Name, Picture, Cookingtime, Rating)
+TODO		Filter for Favourites, Cooked, Rating, Own (self created)
+TODO		Search for Recipes
+TODO		Mark recipes as Favourite, Cooked
+TODO		Add Recipe to Shopping List (Pop Up message: Recipe added!)
+TODO	View Shopping List (Contains Recipes above and Ingredients sorted by Category)
+TODO		Remove Recipe from List
+TODO		Mark ingredients as bought
+TODO		[copy shopping List Button]
+TODO	Can see DetailView of Recipe
+TODO		Mark Recipe as Favourite,Cooked
+TODO		Add Recipe to Shopping List (Pop Up message: Recipe added!)
+TODO		If your own Recipe:
+TODO			Delete Recipe
+TODO			Change Recipe
+
+ADMIN:
+ 
+TODO	can delete User
+
+NOONE:
+
+TODO	Signup 
+TODO	Login
+TODO	[View Recipes, and detailed description, but when marking or Adding or anything else is clicked link to signup page]
+
+
+Tabellen/SQL:
+`````````````
