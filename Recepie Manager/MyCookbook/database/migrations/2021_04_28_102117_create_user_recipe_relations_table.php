@@ -14,7 +14,7 @@ class CreateUserRecipeRelationsTable extends Migration
     public function up()
     {
         Schema::create('user_recipe_relations', function (Blueprint $table) {
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('users_id');
             $table->unsignedInteger('recipe');
             $table->boolean('cooked');
             $table->boolean('fav');

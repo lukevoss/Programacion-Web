@@ -11,9 +11,9 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    public function posts()
+    public function recipes()
     {
-        return $this->hasMany(Post::class)->orderBy('created_at', 'DESC');
+        return $this->hasMany(Recipe::class)->orderBy('created_at', 'DESC');
     }
 
     /**
@@ -26,12 +26,17 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
+    public function following(){
+        return $this->belongsToMany(Profile::class);
+    }
+
     protected static function boot()
     {
         parent::boot();
 
         static::created(function ($user){
             $user->profile()->create();
+            
         });
     }
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserRecipeRelation extends Model
 {
     protected $fillable = [
-        'cooked', 'user_id', 'fav', 'shopping', 'rating'
+        'cooked', 'users_id', 'fav', 'shopping', 'rating'
     ];
 
     use HasFactory;

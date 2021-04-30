@@ -26,7 +26,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 
+        'email', 
+        'username',
+        'password',
     ];
 
     /**
@@ -59,9 +62,34 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function recipe(){
-        return $this->hasMany(Recipe::class);
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($user){
+            $user->profile()->create();
+            
+        });
     }
+
+    public function recipe(){
+        return $this->hasMany(Recipe::class)->orderBy('created_at', 'DESC');
+    }
+
+    /**
+     * Get the profile associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    public function following(){
+        return $this->belongsToMany(Profile::class);
+    }
+
     public function userRecipeRelation(){
         return $this->hasMany(UserRecipeRelation::class);
     }

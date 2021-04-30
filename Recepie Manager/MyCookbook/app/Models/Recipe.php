@@ -10,8 +10,15 @@ class Recipe extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'instructions', 'minutes', 'user_id'
+        'name', 'instructions', 'minutes', 'users_id'
     ];
+
+    protected $guarded =[];
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function image(){
         return $this->hasOne(Picture::class);
