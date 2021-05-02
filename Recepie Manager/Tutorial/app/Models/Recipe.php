@@ -14,4 +14,12 @@ class Recipe extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    //added
+    public function image(){
+        return $this->hasOne(Picture::class);
+    }
+    public function ingredient(){
+        return $this->hasMany(Ingredient::class);
+    }
 }

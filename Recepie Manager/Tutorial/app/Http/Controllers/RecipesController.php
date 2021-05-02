@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Recipe;
+use App\Models\Ingredient;
 use Intervention\Image\Facades\Image;
 
 class RecipesController extends Controller
@@ -16,28 +17,30 @@ class RecipesController extends Controller
     public function index()
     {
         $users = auth()->user()->following()->pluck('profiles.user_id');
-        $recipes = Recipe::whereIn('user_id', $users)->with('user')->latest()->paginate();
+        $recipes = Recipe::whereIn('user_id', $users)->orWhere('user_id', auth()->user()->id)->with('user')->latest()->paginate();
         return view('recipes.index', compact('recipes'));
     }
 
     public function create()
     {
-        return view('recipes.create');
+        $ingredients = Ingredient::all();
+        return view('recipes.create', compact('ingredients'));
     }
 
     public function store()
     {
         $data = request()->validate([
-            'caption' => 'required',
+            'name' => 'required',
+            'instructions' => '',
             'image' => ['required','image'],
         ]);
         $imagePath = request('image')->store('uploads', 'public');
         
         $image = Image::make(public_path("storage/{$imagePath}"))->fit(1200,1200);
         $image->save();
-        
         auth()->user()->recipes()->create([
-            'caption' => $data['caption'],
+            'name' => $data['name'],
+            'instructions' => $data['instructions'],
             'image' => $imagePath,
         ]);
         return redirect('/profile/' . auth()->user()->id);

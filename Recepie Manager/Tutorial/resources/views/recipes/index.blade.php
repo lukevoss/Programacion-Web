@@ -25,7 +25,7 @@
                             </div>
                         </div>
                     </div>
-                    <p>{{ $recipe->caption }}</p>
+                    <p>{{ $recipe->name }}</p>
                 </div>
             </div>
         </div>

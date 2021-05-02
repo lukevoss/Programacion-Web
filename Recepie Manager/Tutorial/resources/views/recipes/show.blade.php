@@ -17,14 +17,17 @@
                             <a href="/profile/{{$recipe->user->id}}">
                                 <span class="text-dark">{{ $recipe->user->name}}</span>
                             </a>
-                            <a href="#" class="pl-3">Follow</a>
+                            @if ($recipe->user->id != Auth::user()->id)         
+                                <a href="#" class="pl-3">Follow</a>
+                            @endif
                         </div>
                     </div>
                 </div>
 
                 <hr>
-
-                <p>{{ $recipe->caption }}</p>
+                
+                <h4><strong>{{ $recipe->name }}</strong></h4>
+                <p>{!! nl2br($recipe->instructions) !!}</p>
             </div>
         </div>
     </div>

@@ -10,7 +10,9 @@
             <div class="d-flex justify-content-between align-items-baseline">
                 <div class="d-flex align-items-center pb-3">
                     <div class="h4">{{ $user->name }}</div>
-                    <follow-button user-id="{{$user->id}}" follows="{{ $follows }}"></follow-button>
+                    @if ($user->id != Auth::user()->id)
+                        <follow-button user-id="{{$user->id}}" follows="{{ $follows }}"></follow-button>
+                    @endif
                 </div>
 
             @can('update', $user->profile)
@@ -30,13 +32,17 @@
 
     <div class="row pt-4">
         @foreach ($user->recipes as $recipe)
-        <div class="col-4 pb-4">
-            <a href="/p/{{ $recipe->id }}">
-                <img src="/storage/{{ $recipe->image }}" alt="" class="w-100">
-            </a>
-        </div> 
+            <div class="col-4 pb-4">
+                <a href="/p/{{ $recipe->id }}">
+                    <figure class="rounded bg-white shadow-sm">
+                        <img src="/storage/{{ $recipe->image }}" alt="" class="w-100 card-img-top">
+                        <figcaption class="p-4 card-img-bottom">
+                          <h2 class="h5 font-weight-bold mb-2 font-italic"><span class="text-dark">{{ $recipe->name }}</span></h2>
+                        </figcaption>
+                      </figure>
+                </a>
+            </div>
         @endforeach
-        
     
     </div>
 </div>
