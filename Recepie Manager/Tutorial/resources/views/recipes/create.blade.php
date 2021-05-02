@@ -46,44 +46,62 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                    
-                </div>
-
-                <div class="row">
-                    <label for="ingredient" class="col-md-4 col-form-label">Add Ingredient</label>
-                    <label for="quantity" class="col-md-4 col-form-label">Quantity</label>
-                    <label for="measurements" class="col-md-4 col-form-label">Measurement</label>
                 </div>
 
                 <div class="form-group row">
-                    <div class="dropdown">
-                        <select class="browser-default custom-select" name="ingredient">
-                            @foreach ($ingredients as $ingredient)
-                                <option value="{{$ingredient->id}}">{{$ingredient->name}}</option>
-                            @endforeach
-                        </select>
+                    <label for="ingredients" class="col-md-4 col-form-label">Ingredients:</label>
+                    <div class="container">
+                        <div class="card rounded-1 border-1 ">
+                            <div class="card-body p-2">
+                                
+                                <!--  Bootstrap table-->
+                                <div class="table-responsive">
+                                    <table class="table" name="ingredients">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Ingredient</th>
+                                                <th scope="col">Measurement</th>
+                                                <th scope="col">Quantity</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <select class="browser-default custom-select" name="ingredient">
+                                                            @foreach ($ingredients as $ingredient)
+                                                                <option value="{{$ingredient->id}}">{{$ingredient->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div> 
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <select class="browser-default custom-select" name="measurement">
+                                                            <option value="gr">gr</option>
+                                                            <option value="ml">ml</option>
+                                                            <option value="unit">unit</option>
+                                                            <option value="Tbsp">Tbsp</option>
+                                                            <option value="tsp">tsp</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="quantity" id="">
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+            
+                                <!-- Add rows button-->
+                                <a class="btn btn-primary rounded-0 btn-block" id="insertRow" href="#">Add new row</a>
+                            </div>
+                        </div>
                     </div>
-
-                    <input type="text" name="quantity" id="">
-
-                    <div class="dropdown">
-                        <select class="browser-default custom-select" name="measurement">
-                            <option value="gr">gr</option>
-                            <option value="ml">ml</option>
-                            <option value="unit">unit</option>
-                            <option value="Tbsp">Tbsp</option>
-                            <option value="tsp">tsp</option>
-                        </select>
-                    </div>
-
-
-    
-                    @error('ingredients')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                    
                 </div>
 
             
