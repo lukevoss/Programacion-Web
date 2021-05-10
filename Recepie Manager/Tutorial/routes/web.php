@@ -29,3 +29,5 @@ Route::patch('/profile/{user}', [App\Http\Controllers\ProfilesController::class,
 
 Route::get('/search', [App\Http\Controllers\UsersController::class, 'search'])->name('search');
 
+Route::get('/ajax-form', 'Recipes@ajax_form');
+Route::post('/ajax',  [App\Http\Controllers\RecipesController::class, 'ajax']);

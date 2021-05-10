@@ -4,6 +4,22 @@
 <div class="container">
     <form action="/p" enctype="multipart/form-data" method="POST">
         @csrf
+        @php
+        $ids = array();
+        $names = array();
+        $measurements = array();
+        foreach ($ingredients as $ingredient) {
+            array_push($ids, $ingredient->id);
+            array_push($names, $ingredient->name);
+            array_push($measurements, $ingredient->measurement);
+        }
+        $ids_encoded = json_encode($ids);
+        $names_encoded = json_encode($names);
+        $measurements_encoded = json_encode($measurements);
+        @endphp
+        <input type="hidden" id="id" value="{{$ids_encoded}}">
+        <input type="hidden" id="name" value="{{$names_encoded}}">
+        <input type="hidden" id="measurement" value="{{$measurements_encoded}}">
         <div class="row">
             <div class="col-8 offset-2">
 
@@ -111,12 +127,3 @@
 </div>
 @endsection
 
-@php
-$ids = array();
-foreach ($ingredients as $ingredient) {
-    array_push($ids, $ingredient->id);
-}
-@endphp
-<script>var ids = <?php echo json_encode($ids); ?>;</script>
-<script>var names = <?php echo json_encode($ids); ?>;</script>
-<script>var measurements = <?php echo json_encode($ids); ?>;</script>

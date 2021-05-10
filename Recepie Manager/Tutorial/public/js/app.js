@@ -49790,8 +49790,26 @@ $(function () {
   
   $("#insertRow").on("click", function (event) {
       event.preventDefault();
-  
-      alert("hi");
+      var ids = $("#id").val();
+      var ids_dec = JSON.parse(ids);
+      var names = $("#name").val();
+      var names_dec = JSON.parse(names);
+      var measurements = $("#measurement").val();
+      var measurements_dec = JSON.parse(measurements);
+      /*$.ajaxSetup({
+        headers: {
+          'X-CSRF_TOKEN': $("meta[name='csrf_token']").attr('content')
+        }
+      });
+      $.ajax({
+        url:"{{url('/ajax')}}",
+        method: 'POST',
+        data: {ing: ing},
+        success: function(result){
+          var var_ids = JSON.parse(ids);
+          var_ids.forEach(element => alert(element));
+        }
+      });*/
       var newRow = $("<tr>");
       var cols = '';
       var test = '{{ $ingredients->first->id}}';
@@ -49800,7 +49818,10 @@ $(function () {
       cols += '<th scrope="row">' + counter + '</th>';
       cols += '<td><div class="dropdown">';
       cols += '<select class="browser-default custom-select" name="ingredient">';
-      cols += '<option value="bla">'+test+' - measured in bli</option>';
+      var i;
+      for (i = 0; i < ids_dec.length; i++) {
+      cols += '<option value='+ids_dec[i]+' >'+names_dec[i]+' - measured in '+measurements_dec[i]+'</option>';
+      }
       cols += '</select>';
       cols += '</div>';
       cols += '</td> <td>';

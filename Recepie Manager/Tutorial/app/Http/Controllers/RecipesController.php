@@ -51,4 +51,11 @@ class RecipesController extends Controller
         return view('recipes.show', compact('recipe'));
     }
 
+    public function ajax_form(){
+        return view('ajax_form');
+    }
+    public function ajax(Request $request){
+        echo("TEEESSST");
+        dd(response()->json(['result'=>$request->file]));
+    }
 }
