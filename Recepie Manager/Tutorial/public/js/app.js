@@ -49735,38 +49735,92 @@ Vue.compile = compileToFunctions;
 /******/ 	
 /******/ })()
 ;
+/*
+$(function () {
+
+  // Start counting from the second row
+  var counter = 2;
+  //console.log(first); // STRING
+  var var_ids = JSON.parse(ids);
+  var var_names = JSON.parse(names);
+  var var_measurements = JSON.parse(measurements);
+
+$("#insertRow").on("click", function (event) {
+  event.preventDefault();
+  var newRow = $("<tr>");
+  var cols = '';
+  //var ingredients=window.data;
+
+  // Table columns
+  cols += '<th scrope="row">' + counter + '</th>';
+  cols += '<td> <div class="dropdown"> <select class="browser-default custom-select" name="ingredient">';
+  //var i;
+  //for (i = 0; i < var_ids.length; i++) {
+  //  cols += '<option value="+var_ids[i]+" >+var_names[i]+ - measured in +var_measurements[i]+</option>';
+  //}
+  for (i = 0; i < 5; i++) {
+    cols += '<option value="Bla" >BAbedi - measured in bubi</option>';
+  }
+  cols += '</select> </div> </td> <td> <input type="number" name="quantity" id=""></td>';
+  cols += '<td><button class="btn btn-danger rounded-0" id ="deleteRow"><i class="fa fa-trash"></i></button</td>';
+
+  // Insert the columns inside a row
+  newRow.append(cols);
+
+  // Insert the row inside a table
+  $("table").append(newRow);
+  
+  // Increase counter after each row insertion
+  counter++;
+});
+
+// Remove row when delete btn is clicked
+$("table").on("click", "#deleteRow", function (event) {
+  $(this).closest("tr").remove();
+  counter -= 1
+});
+});
+*/
 
 $(function () {
 
   // Start counting from the second row
   var counter = 2;
-
+  
+  
   $("#insertRow").on("click", function (event) {
       event.preventDefault();
-
+  
+      alert("hi");
       var newRow = $("<tr>");
       var cols = '';
-
+      var test = '{{ $ingredients->first->id}}';
+  
       // Table columns
       cols += '<th scrope="row">' + counter + '</th>';
-      cols += '<td><input class="form-control rounded-0" type="text" name="ingredient" placeholder="Ingredient"></td>';
-      cols += '<td><input class="form-control rounded-0" type="text" name="measurement" placeholder="Measurement"></td>';
-      cols += '<td><input class="form-control rounded-0" type="text" name="quantity" placeholder="Quantity"></td>';
+      cols += '<td><div class="dropdown">';
+      cols += '<select class="browser-default custom-select" name="ingredient">';
+      cols += '<option value="bla">'+test+' - measured in bli</option>';
+      cols += '</select>';
+      cols += '</div>';
+      cols += '</td> <td>';
+      cols += '<input type="number" name="quantity" id="">';
+      cols += '</td>'
       cols += '<td><button class="btn btn-danger rounded-0" id ="deleteRow"><i class="fa fa-trash"></i></button</td>';
-
+  
       // Insert the columns inside a row
       newRow.append(cols);
-
+  
       // Insert the row inside a table
       $("table").append(newRow);
-
+  
       // Increase counter after each row insertion
       counter++;
   });
-
+  
   // Remove row when delete btn is clicked
   $("table").on("click", "#deleteRow", function (event) {
       $(this).closest("tr").remove();
       counter -= 1
   });
-});
+  });

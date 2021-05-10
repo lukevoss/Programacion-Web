@@ -17,7 +17,6 @@ class CreateIngredientRecipePivotTable extends Migration
             $table->unsignedInteger('ingredient_id');
             $table->unsignedInteger('recipe_id');
             $table->unsignedSmallInteger('quantity')->nullable();
-            $table->enum('measurement',['units','gr','ml','Tablespoon','Teaspoon']);
             $table->timestamps();
         });
     }

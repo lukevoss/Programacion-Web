@@ -61,7 +61,6 @@
                                             <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Ingredient</th>
-                                                <th scope="col">Measurement</th>
                                                 <th scope="col">Quantity</th>
                                             </tr>
                                         </thead>
@@ -72,33 +71,21 @@
                                                     <div class="dropdown">
                                                         <select class="browser-default custom-select" name="ingredient">
                                                             @foreach ($ingredients as $ingredient)
-                                                                <option value="{{$ingredient->id}}">{{$ingredient->name}}</option>
+                                                                <option value="{{$ingredient->id}}">{{$ingredient->name}} - measured in {{$ingredient->measurement}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div> 
                                                 </td>
                                                 <td>
-                                                    <div class="dropdown">
-                                                        <select class="browser-default custom-select" name="measurement">
-                                                            <option value="gr">gr</option>
-                                                            <option value="ml">ml</option>
-                                                            <option value="unit">unit</option>
-                                                            <option value="Tbsp">Tbsp</option>
-                                                            <option value="tsp">tsp</option>
-                                                        </select>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <input type="text" name="quantity" id="">
+                                                    <input type="number" name="quantity" id="">
                                                 </td>
                                                 <td></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-            
                                 <!-- Add rows button-->
-                                <a class="btn btn-primary rounded-0 btn-block" id="insertRow" href="#">Add new row</a>
+                                <a class="btn btn-primary rounded-0 btn-block" id="insertRow" href="#!" onclick="">Add new row</a>
                             </div>
                         </div>
                     </div>
@@ -118,9 +105,18 @@
                 <div class="row pt-4">
                     <button class="btn btn-primary">Add New Recipe</button>
                 </div>
-
             </div>
         </div>
     </form>
 </div>
 @endsection
+
+@php
+$ids = array();
+foreach ($ingredients as $ingredient) {
+    array_push($ids, $ingredient->id);
+}
+@endphp
+<script>var ids = <?php echo json_encode($ids); ?>;</script>
+<script>var names = <?php echo json_encode($ids); ?>;</script>
+<script>var measurements = <?php echo json_encode($ids); ?>;</script>

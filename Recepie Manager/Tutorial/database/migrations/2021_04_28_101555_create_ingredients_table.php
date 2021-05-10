@@ -17,7 +17,7 @@ class CreateIngredientsTable extends Migration
             $table->id();
             $table->string('name', 128);
             $table->enum('category',['Fruits','Veggies','Meat & Seafood','Canned Food', 'Dairy & Eggs','Grains & Pasta','Frozen Food','Bread and Bakery','Miscellaneous']);
-            //$table->enum('measurement',['units','gr','ml','Tablespoon','Teaspoon']); //Moved to Recipe_Ingredient Table
+            $table->enum('measurement',['units','gr','ml','Tablespoons','Teaspoons']);
             $table->timestamps();
         });
     }

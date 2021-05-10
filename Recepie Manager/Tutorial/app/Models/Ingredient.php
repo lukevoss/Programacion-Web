@@ -11,4 +11,5 @@ class Ingredient extends Model
     function recipe(){
         return $this->belongsToMany(Recipe::class);
     }
+    
 }
