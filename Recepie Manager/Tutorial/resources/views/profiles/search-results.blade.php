@@ -19,19 +19,24 @@
 
     @foreach ($users as $user)
         <div class="row">
-            <div class="col-8">
+            <div class="col-12">
                 <div>
                     <div class="d-flex align-items-center">
                         <div class="pr-3">
                             <img src="{{ $user->profile->profileImage() }}" class="rounded-circle w-100" style="max-width: 100px;">
                         </div>
-                        <div>
-                            <div class="font-weight-bold">
-                                <a href="/profile/{{$user->id}}">
-                                    <span class="text-dark">{{ $user->name}}</span>
-                                </a>
-                                <a href="#" class="pl-3">Follow</a>
-                            </div>
+                        <div class="font-weight-bold">
+                            <a href="/profile/{{$user->id}}">
+                                <span class="text-dark">{{ $user->name}}</span>
+                            </a>
+                        </div>
+                        <div class="pl-5">
+                            @if (!(auth()->user()->following->contains($user->id)))  
+                                <td>
+                                    <!--<a href="#" class="pl-3">Follow</a>-->
+                                    <follow-button user-id="{{$user->id}}" follows="{{ (auth()->user()->following->contains($user->id)) }}"></follow-button>
+                                </td>       
+                            @endif
                         </div>
                     </div>
                     <hr>
