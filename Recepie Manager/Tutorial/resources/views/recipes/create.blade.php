@@ -5,6 +5,7 @@
     <form action="/p" enctype="multipart/form-data" method="POST">
         @csrf
         @php
+        $NIng = 2;
         $ids = array();
         $names = array();
         $measurements = array();
@@ -17,9 +18,12 @@
         $names_encoded = json_encode($names);
         $measurements_encoded = json_encode($measurements);
         @endphp
+        <input type="hidden" id="h_NIng" value="{{$NIng}}">
         <input type="hidden" id="h_id" value="{{$ids_encoded}}">
         <input type="hidden" id="h_name" value="{{$names_encoded}}">
         <input type="hidden" id="h_measurement" value="{{$measurements_encoded}}">
+
+        <input type="hidden" name="count" id="count" value="{{$NIng}}">
         <div class="row">
             <div class="col-8 offset-2">
 

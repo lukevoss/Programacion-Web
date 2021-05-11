@@ -108,6 +108,17 @@ class RecipesController extends Controller
             $imageArray ?? []
         ));
 
+        //ingredients
+        $recipe->ingredients()->detach();
+        $count = request('count');
+        for($i=1; $i <= $count; $i+=1){
+            //dd(request('sel_'.$i));
+            if(request('sel_'.$i)!=null){
+                $recipe->ingredients()->attach(request('sel_'.$i),
+                ['quantity' => request('q_'.$i)]);
+            }
+        }
+
         return redirect('/profile/' . auth()->user()->id);
     }
 

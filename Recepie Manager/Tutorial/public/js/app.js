@@ -49784,9 +49784,10 @@ $("table").on("click", "#deleteRow", function (event) {
 
 $(function () {
 
-  // Start counting from the second row
-  var counter = 2;
-  var counter_ids = 2;
+  // Start counting from the No of Ingredients in Recipe row
+  var NIng = $("#h_NIng").val();
+  var counter = NIng;
+  var counter_ids = NIng;
   
   $("#insertRow").on("click", function (event) {
       event.preventDefault();

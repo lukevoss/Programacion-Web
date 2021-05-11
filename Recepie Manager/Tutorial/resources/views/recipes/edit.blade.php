@@ -20,6 +20,26 @@
     <form action="/p/{{$recipe->id}}" enctype="multipart/form-data" method="POST">
         @csrf
         @method('PATCH')
+        @php
+        $NIng = $recipe->ingredients->count()+1;
+        $ids = array();
+        $names = array();
+        $measurements = array();
+        foreach ($ingredients as $ingredient) {
+            array_push($ids, $ingredient->id);
+            array_push($names, $ingredient->name);
+            array_push($measurements, $ingredient->measurement);
+        }
+        $ids_encoded = json_encode($ids);
+        $names_encoded = json_encode($names);
+        $measurements_encoded = json_encode($measurements);
+        @endphp
+        <input type="hidden" id="h_NIng" value="{{$NIng}}">
+        <input type="hidden" id="h_id" value="{{$ids_encoded}}">
+        <input type="hidden" id="h_name" value="{{$names_encoded}}">
+        <input type="hidden" id="h_measurement" value="{{$measurements_encoded}}">
+
+        <input type="hidden" name="count" id="count" value="{{$NIng}}">
         <div class="row">
             <div class="col-8 offset-2">
 
@@ -79,12 +99,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                $i = 0;
+                                            @endphp
                                             @foreach ($recipe->ingredients as $ingredient)
+                                            @php
+                                                $i +=1;
+                                            @endphp
                                             <tr>
-                                                <th scope="row">1</th>
+                                                <th scope="row">{{ $i }}</th>
                                                 <td>
                                                     <div class="dropdown">
-                                                        <select class="browser-default custom-select" name="ingredient">
+                                                        <select class="browser-default custom-select" name="{{'sel_'.$i}}" id="{{'sel_'.$i}}">
                                                             @foreach ($ingredients as $ing)
                                                                 @if ($ing->id == $ingredient->id)
                                                                     <option value="{{$ingredient->id}}" selected>{{$ingredient->name}} - measured in {{$ingredient->measurement}}</option>
@@ -96,9 +122,9 @@
                                                     </div> 
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="quantity" id="" value="{{ $ingredient->pivot->quantity }}">
+                                                    <input type="number" name="{{'q_'.$i}}" id="{{'q_'.$i}}" value="{{ $ingredient->pivot->quantity }}">
                                                 </td>
-                                                <td></td>
+                                                <td><button class="btn btn-danger rounded-0" id ="deleteRow"><i class="fa fa-trash"></i></button></td>
                                             </tr>
                                             @endforeach
                                         </tbody>
