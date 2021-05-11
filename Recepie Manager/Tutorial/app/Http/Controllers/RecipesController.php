@@ -69,7 +69,7 @@ class RecipesController extends Controller
 
     public function destroy(Recipe $recipe)
     {
-        $recipe->pivot->delete();
+        $recipe->ingredients()->detach();
         $recipe->delete();
         return redirect('/profile/' . auth()->user()->id);
     }

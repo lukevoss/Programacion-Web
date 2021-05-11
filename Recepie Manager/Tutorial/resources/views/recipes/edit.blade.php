@@ -86,10 +86,11 @@
                                                     <div class="dropdown">
                                                         <select class="browser-default custom-select" name="ingredient">
                                                             @foreach ($ingredients as $ing)
-                                                                @if ($ing == $ingredient)
-                                                                    <option value="{{$ing->id}}" selected>{{$ing->name}} - measured in {{$ing->measurement}}</option>
-                                                                @endif
+                                                                @if ($ing->id == $ingredient->id)
+                                                                    <option value="{{$ingredient->id}}" selected>{{$ingredient->name}} - measured in {{$ingredient->measurement}}</option>
+                                                                @else
                                                                 <option value="{{$ing->id}}">{{$ing->name}} - measured in {{$ing->measurement}}</option>
+                                                                @endif
                                                             @endforeach
                                                         </select>
                                                     </div> 
