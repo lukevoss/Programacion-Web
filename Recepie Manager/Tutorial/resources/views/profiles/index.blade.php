@@ -9,15 +9,16 @@
         <div class="col-9 p-3">
             <div class="d-flex justify-content-between align-items-baseline">
                 <div class="d-flex align-items-center pb-3">
-                    <div class="h4">{{ $user->name }}</div>
-                    @if ($user->id != Auth::user()->id)
+                    <div class="h4 ">{{ $user->name }}</div>
+                    <div class="pr-0">
+                        @if ($user->id != Auth::user()->id)
                         <follow-button user-id="{{$user->id}}" follows="{{ $follows }}"></follow-button>
-                    @endif
+                        @endif
+                    </div>
                 </div>
-
-            @can('update', $user->profile)
-                <a href="/p/create">Add New Recipe</a>
-            @endcan
+                @can('update', $user->profile)
+                    <a href="/p/create">Add New Recipe</a>
+                @endcan
             </div>
             @can('update', $user->profile)
                 <a href="/profile/{{ $user->id }}/edit">Edit Profile</a>

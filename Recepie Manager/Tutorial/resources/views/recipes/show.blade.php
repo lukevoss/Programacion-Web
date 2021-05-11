@@ -9,23 +9,25 @@
         <div class="col-4">
             <div>
                 <div class="d-flex align-items-center">
-                    <div class="pr-3">
+                    <div class="pr-2">
                         <img src="{{ $recipe->user->profile->profileImage() }}" class="rounded-circle w-100" style="max-width: 40px;">
                     </div>
-                    <div>
+                    <div class="pr-5">
                         <div class="font-weight-bold">
                             <td>                            
                                 <a href="/profile/{{$recipe->user->id}}">
                                     <span class="text-dark">{{ $recipe->user->name}}</span>
                                 </a>
                             </td>
-                            @if ($recipe->user->id != Auth::user()->id)  
-                                <td>
-                                    <!--<a href="#" class="pl-3">Follow</a>-->
-                                    <follow-button user-id="{{$recipe->user->id}}" follows="{{ $follows }}"></follow-button>
-                                </td>       
-                            @endif
                         </div>
+                    </div>
+                    <div class="col-3 pl-5">
+                        @if ($recipe->user->id != Auth::user()->id && !$follows)  
+                            <td>
+                                <!--<a href="#" class="pl-3">Follow</a>-->
+                                <follow-button user-id="{{$recipe->user->id}}" follows="{{ $follows }}"></follow-button>
+                            </td>       
+                        @endif
                     </div>
                     
                 </div>

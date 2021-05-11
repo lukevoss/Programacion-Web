@@ -31,18 +31,20 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="col-10 col-md-8 col-lg-8">
-                    <form action="/search" method="get">
-                        <div class="p-1 bg-light rounded rounded-pill shadow-sm">
-                            <div class="input-group">
-                                <input type="search" name="search" id="search" placeholder="What're you searching for?" aria-describedby="button-addon1" class="form-control border-0 bg-light" value="{{ request()->input('search')}}">
-                                <div class="input-group-append">
-                                    <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+                @auth
+                    <div class="col-10 col-md-8 col-lg-8">
+                        <form action="/search" method="get">
+                            <div class="p-1 bg-light rounded rounded-pill shadow-sm">
+                                <div class="input-group">
+                                    <input type="search" name="search" id="search" placeholder="What're you searching for?" aria-describedby="button-addon1" class="form-control border-0 bg-light" value="{{ request()->input('search')}}">
+                                    <div class="input-group-append">
+                                        <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
+                        </form>
+                    </div>
+                @endauth
 
                 <div class="container h-100">
                     <div class="row h-100 justify-content-center align-items-center">
