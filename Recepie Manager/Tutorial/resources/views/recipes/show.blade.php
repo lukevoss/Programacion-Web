@@ -14,11 +14,16 @@
                     </div>
                     <div>
                         <div class="font-weight-bold">
-                            <a href="/profile/{{$recipe->user->id}}">
-                                <span class="text-dark">{{ $recipe->user->name}}</span>
-                            </a>
-                            @if ($recipe->user->id != Auth::user()->id)         
-                                <a href="#" class="pl-3">Follow</a>
+                            <td>                            
+                                <a href="/profile/{{$recipe->user->id}}">
+                                    <span class="text-dark">{{ $recipe->user->name}}</span>
+                                </a>
+                            </td>
+                            @if ($recipe->user->id != Auth::user()->id)  
+                                <td>
+                                    <!--<a href="#" class="pl-3">Follow</a>-->
+                                    <follow-button user-id="{{$recipe->user->id}}" follows="{{ $follows }}"></follow-button>
+                                </td>       
                             @endif
                         </div>
                     </div>
