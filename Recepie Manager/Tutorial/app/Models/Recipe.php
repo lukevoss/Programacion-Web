@@ -20,6 +20,8 @@ class Recipe extends Model
         return $this->hasOne(Picture::class);
     }
     public function ingredients(){
-        return $this->hasMany(Ingredient::class);
+        return $this->belongsToMany(Ingredient::class)
+        ->withTimestamps()
+        ->withPivot(['quantity']);
     }
 }

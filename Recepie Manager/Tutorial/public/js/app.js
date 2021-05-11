@@ -49827,8 +49827,8 @@ $(function () {
       cols += '</td> <td>';
       cols += '<input type="number" name="q_'+counter_ids+'" id="q_'+counter_ids+'">';
       cols += '</td>'
-      cols += '<td><button class="btn btn-danger rounded-0" id ="deleteRow"><i class="fa fa-trash"></i></button</td>';
-      cols += '<input type="hidden" name="count" value="'+counter_ids+'">'
+      cols += '<td><button class="btn btn-danger rounded-0" id ="deleteRow"><i class="fa fa-trash"></i></button></td>';
+      cols += '<input type="hidden" name="count" id="count" value="'+counter_ids+'">'
 
       // Insert the columns inside a row
       newRow.append(cols);

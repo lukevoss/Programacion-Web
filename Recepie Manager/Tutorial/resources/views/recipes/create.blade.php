@@ -97,6 +97,7 @@
                                                 </td>
                                                 <td></td>
                                             </tr>
+                                            <input type="hidden" name="count" id="count" value="1">
                                         </tbody>
                                     </table>
                                 </div>

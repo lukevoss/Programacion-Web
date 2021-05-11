@@ -32,7 +32,6 @@ class RecipesController extends Controller
 
     public function store()
     {
-        dd(request());
         $data = request()->validate([
             'name' => 'required',
             'instructions' => '',
@@ -47,10 +46,18 @@ class RecipesController extends Controller
             'instructions' => $data['instructions'],
             'image' => $imagePath,
         ]);
-        foreach (request()->recipeIngredients as $ingredient){
+        $count = request('count');
+        for($i=1; $i <= $count; $i+=1){
+            //dd(request('sel_'.$i));
+            if(request('sel_'.$i)!=null){
+                $recipe->ingredients()->attach(request('sel_'.$i),
+                ['quantity' => request('q_'.$i)]);
+            }
+        }
+        /*foreach (request()->recipeIngredients as $ingredient){
             $recipe->ingredients()->attach($ingredient['ingredient_id'],
             ['quantity' => $ingredient['quantity']]);
-        }
+        }*/
         return redirect('/profile/' . auth()->user()->id);
     }
 
