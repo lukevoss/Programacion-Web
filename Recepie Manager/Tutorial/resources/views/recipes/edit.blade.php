@@ -2,15 +2,28 @@
 
 @section('content')
 <div class="container">
+    <div class="col-8 offset-2">
+        <div class="row">
+            <div class= "col-11 pl-0">
+                <h1>Edit Recipe</h1>
+            </div>
+            <div class="col-1 "> 
+                <form action="/p/{{$recipe->id}}" method="POST">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-danger" name="delete" id="delete"><i class="fa fa-trash fa-2x"></i></button>               
+                </form>       
+            </div>
+        </div>
+    </div>
+    
     <form action="/p/{{$recipe->id}}" enctype="multipart/form-data" method="POST">
         @csrf
         @method('PATCH')
         <div class="row">
             <div class="col-8 offset-2">
 
-                <div class="row">
-                    <h1>Edit Recipe</h1>
-                </div>
+                
 
                 <div class="form-group row">
                     <label for="name" class="col-md-4 col-form-label">Recipe Name</label>
@@ -104,7 +117,7 @@
                 </div>
 
                 <div class="row pt-4">
-                    <button class="btn btn-primary">Update Recipe</button>
+                    <button class="btn btn-primary" name="update" id="update">Update Recipe</button>
                 </div>
             </div>
         </div>

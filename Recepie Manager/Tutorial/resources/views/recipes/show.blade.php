@@ -22,28 +22,20 @@
                             @endif
                         </div>
                     </div>
-                    <div class="pl-5">
-                        @if ($recipe->user->id == Auth::user()->id)  
-                            <form action="/p/{{$recipe->id}}" method="POST">
-                                @method('DELETE')
-                                @csrf
-                                <button class="btn btn-primary ml-4" type="submit">Delete Post</button>               
-                            </form>       
-                        @endif
-                    </div>
+                    
                 </div>
 
                 <hr>
                 
                 <div class="d-flex align-items-center">
-                    <div class="pr-5">
+                    <div class="col-8 pl-0">
                         <h4><strong>{{ $recipe->name }}</strong></h4>
                     </div>
                     
                     @if ($recipe->user->id == Auth::user()->id)
-                    <div class="pl-5">  
+                    <div class="col-4 pr-1">  
                         <a href="/p/{{$recipe->id}}/edit">
-                            <button class="btn btn-primary ml-4" type="submit">Edit Post</button>               
+                            <button class="btn btn-primary ml-5" type="submit" id="editRecipe"><i class="fa fa-edit fa-lg "></i></button>               
                         </a>
                     </div>       
                     @endif

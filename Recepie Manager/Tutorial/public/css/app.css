@@ -2691,16 +2691,16 @@ fieldset:disabled a.btn {
 .btn-primary:focus,
 .btn-primary.focus {
   color: #fff;
-  background-color: #227dc7;
-  border-color: #2176bd;
-  box-shadow: 0 0 0 0.2rem rgba(82, 161, 225, 0.5);
+  background-color: #1b924d;
+  border-color: #1b924d;
+  box-shadow: 0 0 0 0.2rem rgba(52, 146, 83, 0.5);
 }
 
 .btn-primary.disabled,
 .btn-primary:disabled {
   color: #fff;
-  background-color: #3490dc;
-  border-color: #3490dc;
+  background-color: #219250;
+  border-color: #219250;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active,
