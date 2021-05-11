@@ -19,7 +19,7 @@ class Recipe extends Model
     public function image(){
         return $this->hasOne(Picture::class);
     }
-    public function ingredient(){
+    public function ingredients(){
         return $this->hasMany(Ingredient::class);
     }
 }

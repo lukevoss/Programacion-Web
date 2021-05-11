@@ -25,11 +25,15 @@ class RecipesController extends Controller
     public function create()
     {
         $ingredients = Ingredient::all();
-        return view('recipes.create', compact('ingredients'));
+        $recipeIngredients = [
+            []
+        ];
+        return view('recipes.create', compact('ingredients', 'recipeIngredients'));
     }
 
     public function store()
     {
+        dd(request());
         $data = request()->validate([
             'name' => 'required',
             'instructions' => '',
@@ -39,11 +43,15 @@ class RecipesController extends Controller
         
         $image = Image::make(public_path("storage/{$imagePath}"))->fit(1200,1200);
         $image->save();
-        auth()->user()->recipes()->create([
+        $recipe = auth()->user()->recipes()->create([
             'name' => $data['name'],
             'instructions' => $data['instructions'],
             'image' => $imagePath,
         ]);
+        foreach (request()->recipeIngredients as $ingredient){
+            $recipe->ingredients()->attach($ingredient['ingredient_id'],
+            ['quantity' => $ingredient['quantity']]);
+        }
         return redirect('/profile/' . auth()->user()->id);
     }
 
@@ -92,6 +100,11 @@ class RecipesController extends Controller
         ));
 
         return redirect('/profile/' . auth()->user()->id);
+    }
+
+
+    public function ajax(Request $request){
+        return(response()->json(['result'=>$request->file]));
     }
 
 }

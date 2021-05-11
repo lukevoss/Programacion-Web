@@ -4,6 +4,22 @@
 <div class="container">
     <form action="/p" enctype="multipart/form-data" method="POST">
         @csrf
+        @php
+        $ids = array();
+        $names = array();
+        $measurements = array();
+        foreach ($ingredients as $ingredient) {
+            array_push($ids, $ingredient->id);
+            array_push($names, $ingredient->name);
+            array_push($measurements, $ingredient->measurement);
+        }
+        $ids_encoded = json_encode($ids);
+        $names_encoded = json_encode($names);
+        $measurements_encoded = json_encode($measurements);
+        @endphp
+        <input type="hidden" id="h_id" value="{{$ids_encoded}}">
+        <input type="hidden" id="h_name" value="{{$names_encoded}}">
+        <input type="hidden" id="h_measurement" value="{{$measurements_encoded}}">
         <div class="row">
             <div class="col-8 offset-2">
 
@@ -70,7 +86,7 @@
                                                 <th scope="row">1</th>
                                                 <td>
                                                     <div class="dropdown">
-                                                        <select class="browser-default custom-select" name="ingredient">
+                                                        <select class="browser-default custom-select" name="sel_1" id="sel_1">
                                                             @foreach ($ingredients as $ingredient)
                                                                 <option value="{{$ingredient->id}}">{{$ingredient->name}} - measured in {{$ingredient->measurement}}</option>
                                                             @endforeach
@@ -78,7 +94,7 @@
                                                     </div> 
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="quantity" id="">
+                                                    <input type="number" name="q_1" id="q_1">
                                                 </td>
                                                 <td></td>
                                             </tr>
@@ -112,12 +128,3 @@
 </div>
 @endsection
 
-@php
-$ids = array();
-foreach ($ingredients as $ingredient) {
-    array_push($ids, $ingredient->id);
-}
-@endphp
-<script>var ids = <?php echo json_encode($ids); ?>;</script>
-<script>var names = <?php echo json_encode($ids); ?>;</script>
-<script>var measurements = <?php echo json_encode($ids); ?>;</script>
