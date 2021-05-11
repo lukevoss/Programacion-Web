@@ -130,12 +130,3 @@
 </div>
 @endsection
 
-@php
-$ids = array();
-foreach ($ingredients as $ingredient) {
-    array_push($ids, $ingredient->id);
-}
-@endphp
-<script>var ids = <?php echo json_encode($ids); ?>;</script>
-<script>var names = <?php echo json_encode($ids); ?>;</script>
-<script>var measurements = <?php echo json_encode($ids); ?>;</script>
