@@ -17,9 +17,9 @@
         $names_encoded = json_encode($names);
         $measurements_encoded = json_encode($measurements);
         @endphp
-        <input type="hidden" id="id" value="{{$ids_encoded}}">
-        <input type="hidden" id="name" value="{{$names_encoded}}">
-        <input type="hidden" id="measurement" value="{{$measurements_encoded}}">
+        <input type="hidden" id="h_id" value="{{$ids_encoded}}">
+        <input type="hidden" id="h_name" value="{{$names_encoded}}">
+        <input type="hidden" id="h_measurement" value="{{$measurements_encoded}}">
         <div class="row">
             <div class="col-8 offset-2">
 
@@ -85,7 +85,7 @@
                                                 <th scope="row">1</th>
                                                 <td>
                                                     <div class="dropdown">
-                                                        <select class="browser-default custom-select" name="ingredient">
+                                                        <select class="browser-default custom-select" name="sel_1" id="sel_1">
                                                             @foreach ($ingredients as $ingredient)
                                                                 <option value="{{$ingredient->id}}">{{$ingredient->name}} - measured in {{$ingredient->measurement}}</option>
                                                             @endforeach
@@ -93,7 +93,7 @@
                                                     </div> 
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="quantity" id="">
+                                                    <input type="number" name="q_1" id="q_1">
                                                 </td>
                                                 <td></td>
                                             </tr>

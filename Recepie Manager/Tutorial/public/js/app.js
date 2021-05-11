@@ -49786,15 +49786,15 @@ $(function () {
 
   // Start counting from the second row
   var counter = 2;
-  
+  var counter_ids = 2;
   
   $("#insertRow").on("click", function (event) {
       event.preventDefault();
-      var ids = $("#id").val();
+      var ids = $("#h_id").val();
       var ids_dec = JSON.parse(ids);
-      var names = $("#name").val();
+      var names = $("#h_name").val();
       var names_dec = JSON.parse(names);
-      var measurements = $("#measurement").val();
+      var measurements = $("#h_measurement").val();
       var measurements_dec = JSON.parse(measurements);
       /*$.ajaxSetup({
         headers: {
@@ -49817,7 +49817,7 @@ $(function () {
       // Table columns
       cols += '<th scrope="row">' + counter + '</th>';
       cols += '<td><div class="dropdown">';
-      cols += '<select class="browser-default custom-select" name="ingredient">';
+      cols += '<select class="browser-default custom-select" name="sel_'+counter_ids+'" id="sel_'+counter_ids+'">';
       var i;
       for (i = 0; i < ids_dec.length; i++) {
       cols += '<option value='+ids_dec[i]+' >'+names_dec[i]+' - measured in '+measurements_dec[i]+'</option>';
@@ -49825,10 +49825,11 @@ $(function () {
       cols += '</select>';
       cols += '</div>';
       cols += '</td> <td>';
-      cols += '<input type="number" name="quantity" id="">';
+      cols += '<input type="number" name="q_'+counter_ids+'" id="q_'+counter_ids+'">';
       cols += '</td>'
       cols += '<td><button class="btn btn-danger rounded-0" id ="deleteRow"><i class="fa fa-trash"></i></button</td>';
-  
+      cols += '<input type="hidden" name="count" value="'+counter_ids+'">'
+
       // Insert the columns inside a row
       newRow.append(cols);
   
@@ -49837,6 +49838,7 @@ $(function () {
   
       // Increase counter after each row insertion
       counter++;
+      counter_ids++;
   });
   
   // Remove row when delete btn is clicked
