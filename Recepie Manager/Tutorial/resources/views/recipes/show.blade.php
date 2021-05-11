@@ -50,6 +50,26 @@
                 </div>
                
                 <p>{!! nl2br($recipe->instructions) !!}</p>
+
+                    <div class="card shadow border-0 mb-2">
+                        <div class="card-body p-4">
+                            <h5 class="h5 mb-1"><strong>Ingredient-List</strong></h5>
+                            <ul class="list-group">
+                                @foreach ($recipe->ingredients as $ingredient)
+                                <li class="list-group-item rounded-0">
+                                    <div class="custom-control custom-checkbox">
+                                        <input class="custom-control-input" id="customCheck1" type="checkbox">
+                                        <label class="cursor-pointer font-italic d-block custom-control-label" for="customCheck1">
+                                            <td>{{ $ingredient->name }}</td>
+                                            <td>{{ $ingredient->pivot->quantity.' '.$ingredient->measurement }}</td>
+                                        </label>
+                                    </div>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+    
             </div>
         </div>
     </div>
