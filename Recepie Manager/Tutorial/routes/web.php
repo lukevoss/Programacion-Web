@@ -21,7 +21,11 @@ Route::post('follow/{user}', [App\Http\Controllers\FollowsController::class, 'st
 Route::get('/', [App\Http\Controllers\RecipesController::class, 'index']); 
 Route::get('/p/create', [App\Http\Controllers\RecipesController::class, 'create']);
 Route::post('/p', [App\Http\Controllers\RecipesController::class, 'store']);
+Route::delete('/p/{recipe}', [App\Http\Controllers\RecipesController::class, 'destroy']);
+Route::get('/p/{recipe}/edit', [App\Http\Controllers\RecipesController::class, 'edit']);
+Route::patch('/p/{recipe}', [App\Http\Controllers\RecipesController::class, 'update']);
 Route::get('/p/{recipe}', [App\Http\Controllers\RecipesController::class, 'show']);
+
 
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');
 Route::get('/profile/{user}/edit', [App\Http\Controllers\ProfilesController::class, 'edit'])->name('profile.edit');
