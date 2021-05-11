@@ -79,22 +79,27 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($recipe->ingredients as $ingredient)
                                             <tr>
                                                 <th scope="row">1</th>
                                                 <td>
                                                     <div class="dropdown">
                                                         <select class="browser-default custom-select" name="ingredient">
-                                                            @foreach ($ingredients as $ingredient)
-                                                                <option value="{{$ingredient->id}}">{{$ingredient->name}} - measured in {{$ingredient->measurement}}</option>
+                                                            @foreach ($ingredients as $ing)
+                                                                @if ($ing == $ingredient)
+                                                                    <option value="{{$ing->id}}" selected>{{$ing->name}} - measured in {{$ing->measurement}}</option>
+                                                                @endif
+                                                                <option value="{{$ing->id}}">{{$ing->name}} - measured in {{$ing->measurement}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div> 
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="quantity" id="">
+                                                    <input type="number" name="quantity" id="" value="{{ $ingredient->pivot->quantity }}">
                                                 </td>
                                                 <td></td>
                                             </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
