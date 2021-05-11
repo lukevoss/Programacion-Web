@@ -64,7 +64,8 @@ class RecipesController extends Controller
 
     public function show(Recipe $recipe)
     {
-        return view('recipes.show', compact('recipe'));
+        $follows = (auth()->user()) ? auth()->user()->following->contains($recipe->user->id) : false;
+        return view('recipes.show', compact('recipe','follows'));
     }
 
     public function destroy(Recipe $recipe)
