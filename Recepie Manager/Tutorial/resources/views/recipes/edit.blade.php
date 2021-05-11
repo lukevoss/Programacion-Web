@@ -2,13 +2,14 @@
 
 @section('content')
 <div class="container">
-    <form action="/p" enctype="multipart/form-data" method="POST">
+    <form action="/p/{{$recipe->id}}" enctype="multipart/form-data" method="POST">
         @csrf
+        @method('PATCH')
         <div class="row">
             <div class="col-8 offset-2">
 
                 <div class="row">
-                    <h1>Add New Recipe</h1>
+                    <h1>Edit Recipe</h1>
                 </div>
 
                 <div class="form-group row">
@@ -19,7 +20,7 @@
                             type="text" 
                             class="form-control @error('name') is-invalid @enderror" 
                             name="name"
-                            value="{{ old('name') }}" 
+                            value="{{ $recipe->name }}" 
                             required autocomplete="name" autofocus>
     
                     @error('name')
@@ -38,9 +39,8 @@
                                 id="instructions" 
                                 cols="30" 
                                 rows="10"
-                                value="{{ old('instructions') }}"
                                 class="form-control @error('instructions') is-invalid @enderror"
-                                required autocomplete="name" autofocus></textarea>
+                                required autocomplete="name" autofocus>{{ $recipe->instructions }}</textarea>
     
                     @error('instructions')
                         <span class="invalid-feedback" role="alert">
@@ -104,7 +104,7 @@
                 </div>
 
                 <div class="row pt-4">
-                    <button class="btn btn-primary">Add New Recipe</button>
+                    <button class="btn btn-primary">Update Recipe</button>
                 </div>
             </div>
         </div>
